@@ -1,6 +1,6 @@
 # Identity-Lifecycle-Automation-Suite
 
-# PowerShell-Based User Management for Regional Enterprise Infrastructure
+## PowerShell-Based User Management for Regional Enterprise Infrastructure
 
 This project documents the development of a modular, error-resilient automation suite designed to manage the full Joiner-Mover-Leaver (JLM) lifecycle within an Active Directory environment. Developed with a focus on regional business operations in Windsor, ON, this suite demonstrates a progression from manual task execution to advanced, logic-driven automation.
 
