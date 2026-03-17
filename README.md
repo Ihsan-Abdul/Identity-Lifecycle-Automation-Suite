@@ -66,10 +66,10 @@ The second iteration focused on reducing repetition and improving scalability.
 - Continued use of splatting for readability
 
 **Example improvement:**
- powershell
+` powershell
 foreach ($User in $UserToCreate) {
     New-ADUser @UserParams
-}
+}`
 This transformed the script from:
 
 **Manual per-user creation**
@@ -183,7 +183,7 @@ The leaver script represents the most complete stage of the lifecycle.
 
 **2. Security Scrubbing**
 - Removes all group memberships except Domain Users
- 'Get-ADPrincipalGroupMembership | Remove-ADGroupMember'
+- `Get-ADPrincipalGroupMembership | Remove-ADGroupMember`
 - This ensures a zero-access state
 
 **3. Referential Integrity**
