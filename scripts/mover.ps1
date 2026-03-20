@@ -75,8 +75,9 @@ Set-ADUser -Identity $ReportsFromID @SubSplat
 }
 
 #Update Group Permissons
+#Added the new group first to ensure user never has zero access during move
 Add-ADGroupMember -Identity $NewGroup -Members $UserID -ErrorAction Stop
-Remove-ADGroupMember -Identity $OldGroup -Members $UserID -Confirm: $false -ErrorAction Stop
+Remove-ADGroupMember -Identity $OldGroup -Members $UserID -Confirm:$false -ErrorAction Stop
 Write-Host "$UserId has from $OldGroup to $NewGroup" 
 }
 
