@@ -8,10 +8,12 @@ Rather than starting with a complete solution, this project was built iterativel
 
 ### System Architechture & Workflow
 ![JML Process Flow](images/jml.png)
+
 *Workflow of automated lifecyle scripts*
 
 ### Active Directory OU Diagram
-![OU Structure](images/OUDiagram.png)
+![OU Structure](images/OU Diagram.png)
+
 *Seperation of Users and Groups to support RBAC and AGDLP nesting* 
 
 The focus was to:
