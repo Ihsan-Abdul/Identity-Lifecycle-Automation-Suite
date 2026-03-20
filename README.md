@@ -122,6 +122,7 @@ This marked the shift to:
 
 **Implementation Note**
 - Instead of hardcoding user data, this script uses a param() block to accept dynamic input at runtime, allowing the same script to be used for any department. Also includes validation to prevent duplicate account creation.
+
 Powershell: 
 
 ``param(``
