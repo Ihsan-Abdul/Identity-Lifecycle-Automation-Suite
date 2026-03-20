@@ -120,6 +120,26 @@ This marked the shift to:
 
 **Reusable automation for help desk or IT operations**
 
+**Implementation Note**
+- Instead of hardcoding user data, this script uses a param() block to accept dynamic input at runtime, allowing the same script to be used for any department. Also includes validation to prevent duplicate account creation.
+Powershell: 
+
+``param(``
+
+``[string]$Dept = "Marketing",``
+
+``[string]$FirstName = "Elena",``
+
+``[string]$LastName = "Mark",``
+
+``[string]$UserID = "emark",``
+
+``[string]$Title = "$($Dept) Staff"``
+
+``)``
+
+[View full Joiner script here](scripts/joiner.ps1)
+
 ---
 
 ## Phase 4 — Mover Automation (Access Control & Permission Integrity)
@@ -182,7 +202,7 @@ to:
 **Implementation Note**
 - To prevent Permission Creep, the Mover script identifies the user's old role-based group and removes it in the same operation. This ensures the user only has the access required for their current role.
 
-``Powershell: ``
+Powershell: 
 
 ``Add-ADGroupMember -Identity $NewGroup -Members $UserID -ErrorAction Stop``
 
@@ -220,7 +240,8 @@ The leaver script represents the most complete stage of the lifecycle.
 
 **Implementation Note**
 - Before disabling a manager's account, the script identifies and reassigns all subordinates to prevent "orphaned" reporting lines:
-``powershell: ``
+
+Powershell: 
 
 ``$Subordinate = Get-ADUser -Filter "Manager -eq '$($User.DistinguishedName)'"  ``
 
