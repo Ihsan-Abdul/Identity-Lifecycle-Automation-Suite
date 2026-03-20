@@ -179,6 +179,19 @@ to:
 
 **Modular lifecycle automation**
 
+**Implementation Note**
+- To prevent Permission Creep, the Mover script identifies the user's old role-based group and removes it in the same operation. This ensures the user only has the access required for their current role.
+
+``Powershell: ``
+
+``Add-ADGroupMember -Identity $NewGroup -Members $UserID -ErrorAction Stop``
+
+``Remove-ADGroupMember -Identity $OldGroup -Members $UserID -Confirm:$false -ErrorAction Stop``
+
+``Write-Host "$UserId has from $OldGroup to $NewGroup" ``
+
+[View full Mover script here](scripts/mover.ps1)
+
 ---
 
 ## Phase 5 — Leaver Automation (Offboarding & Security)
