@@ -6,6 +6,14 @@ This project demonstrates the development of an Identity Lifecycle Management (J
 
 Rather than starting with a complete solution, this project was built iteratively—from basic scripting to a structured automation suite—reflecting how real-world IAM environments evolve over time.
 
+### System Architechture & Workflow
+![JML Process Flow](images/jml.png)
+*Workflow of automated lifecyle scripts*
+
+### Active Directory OU Diagram
+![OU Structure](images/OUDiagram.png)
+*Seperation of Users and Groups to support RBAC and AGDLP nesting* 
+
 The focus was to:
 - Implement RBAC using AGDLP design
 - Automate Joiner, Mover, and Leaver processes
