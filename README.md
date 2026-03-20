@@ -12,7 +12,7 @@ Rather than starting with a complete solution, this project was built iterativel
 *Workflow of automated lifecyle scripts*
 
 ### Active Directory OU Diagram
-![OU Structure](images/OU Diagram.png)
+![OU Structure](images/OU-Diagram.png)
 
 *Seperation of Users and Groups to support RBAC and AGDLP nesting* 
 
