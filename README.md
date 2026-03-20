@@ -207,11 +207,12 @@ The leaver script represents the most complete stage of the lifecycle.
 
 **Implementation Note**
 - Before disabling a manager's account, the script identifies and reassigns all subordinates to prevent "orphaned" reporting lines:
-```powershell```
+``powershell: 
 $Subordinate = Get-ADUser -Filter "Manager -eq '$($User.DistinguishedName)'"  
 if($Subordinate){
 $Subordinate | Set-ADUser -Manager $NewManager 
-Write-Host "Re-assigned $($Subordinate.Count) to $NewManager"
+Write-Host "Re-assigned $($Subordinate.Count) to $NewManager"``
+
 [View Full Leaver script here](scripts/Leaver.ps1)
 
 ---
