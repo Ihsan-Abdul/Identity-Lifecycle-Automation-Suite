@@ -6,7 +6,7 @@ This project demonstrates the development of an Identity Lifecycle Management (J
 
 Rather than starting with a complete solution, this project was built iteratively—from basic scripting to a structured automation suite—reflecting how real-world IAM environments evolve over time.
 
-### System Architechture & Workflow
+### System Architecture & Workflow
 ![JML Process Flow](images/jml.png)
 
 *Workflow of automated lifecyle scripts*
@@ -331,6 +331,20 @@ It reflects real IAM responsibilities, including:
 - Standardized onboarding
 - Controlled access transitions
 - Secure and auditable offboarding
+
+---
+**Execution and Results**
+
+- To validate the automation suite a full lifecycle test was done in the lab environment. The screenshot demonstrates:
+
+1. Joiner: Successful provisioning of `emark` into the Marketing OU.
+
+2. Mover: A seamless transition of `emark` to the Finance department, including a role-based group swap.
+
+3. Leaver: The secure offboarding of `asmith`. Stripping permissions, and relocating the User object to the Disabled Users OU.
+
+
+![Image of JML automated process](images/jml-script-screenshot.png)
 
 ---
 
