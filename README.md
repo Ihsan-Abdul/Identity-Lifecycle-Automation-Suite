@@ -341,8 +341,7 @@ It reflects real IAM responsibilities, including:
 
 2. Mover: A seamless transition of `emark` to the Finance department, including a role-based group swap.
 
-3. Leaver: The secure offboarding of `asmith`. Stripping permissions, and relocating the User object to the Disabled Users OU.
-
+3. Leaver: Secure offboarding of `asmith` including permission removal and relocation of the User object to the Disabled Users OU.
 
 ![Image of JML automated process](images/jml-script-screenshot.png)
 
