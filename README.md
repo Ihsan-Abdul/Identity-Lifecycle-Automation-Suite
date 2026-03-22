@@ -145,7 +145,7 @@ Powershell:
 
 ``)``
 
-[View full Joiner script here](scripts/3b-joiner.ps1)
+[View Joiner script here](scripts/3b-joiner.ps1)
 
 ---
 
@@ -221,7 +221,7 @@ Powershell:
 
 ``Write-Host "$UserId has from $OldGroup to $NewGroup" ``
 
-[View full Mover script here](scripts/4c-mover.ps1)
+[View comprehensive Mover script here](scripts/4c-mover.ps1)
 
 ---
 
@@ -260,7 +260,7 @@ Powershell:
 $Subordinate | Set-ADUser -Manager $NewManager 
 Write-Host "Re-assigned $($Subordinate.Count) to $NewManager"``
 
-[View Full Leaver script here](scripts/5-Leaver.ps1)
+[View Leaver script here](scripts/5-Leaver.ps1)
 
 ---
 
