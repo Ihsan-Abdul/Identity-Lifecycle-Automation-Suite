@@ -62,6 +62,8 @@ While functional, it had several limitations:
 - Required manual updates for every change
 - Repeated commands for each user
 
+[View script here](scripts/1-NewOU-Basic.ps1)
+
 ---
 
 ### Phase 2 — Structured Automation (BetterNewOU)
@@ -88,6 +90,8 @@ into:
 
 **Scalable bulk provisioning**
 
+[View script here](scripts/2-NewOU-Iterative.ps1)
+
 ---
 
 ## Phase 3 — Joiner Automation (Reusable Provisioning)
@@ -102,6 +106,8 @@ This was the transition from environment setup → lifecycle automation.
 - Standardized user creation process
 
 At this stage, the script was still partially static but introduced control logic.
+
+[View script here](scripts/3a-static-Joiner.ps1)
 
 ### Parameterized Joiner Script
 
@@ -139,7 +145,7 @@ Powershell:
 
 ``)``
 
-[View full Joiner script here](scripts/joiner.ps1)
+[View full Joiner script here](scripts/3b-joiner.ps1)
 
 ---
 
@@ -162,6 +168,8 @@ The first mover script handled role changes within a department.
 
 This ensured RBAC enforcement during promotions.
 
+[View role mover script](scripts/4a-role-mover.ps1)
+
 ### Department Mover
 
 A second script handled cross-department moves, introducing:
@@ -170,6 +178,8 @@ A second script handled cross-department moves, introducing:
 - Role updates
 
 This expanded the logic beyond simple role changes.
+
+[View department mover](scripts/4b-department-mover.ps1)
 
 ### Master Mover Script (Consolidation)
 
@@ -211,7 +221,7 @@ Powershell:
 
 ``Write-Host "$UserId has from $OldGroup to $NewGroup" ``
 
-[View full Mover script here](scripts/mover.ps1)
+[View full Mover script here](scripts/4c-mover.ps1)
 
 ---
 
@@ -250,7 +260,7 @@ Powershell:
 $Subordinate | Set-ADUser -Manager $NewManager 
 Write-Host "Re-assigned $($Subordinate.Count) to $NewManager"``
 
-[View Full Leaver script here](scripts/Leaver.ps1)
+[View Full Leaver script here](scripts/5-Leaver.ps1)
 
 ---
 
