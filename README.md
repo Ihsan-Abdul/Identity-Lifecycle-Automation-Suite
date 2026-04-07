@@ -1,8 +1,10 @@
 # Identity Lifecycle Automation Lab
-## PowerShell-Based Joiner / Mover / Leaver (JLM) Suite
+## PowerShell-Based Joiner / Mover / Leaver (JML) Suite
 
 ### Project Overview
-This project demonstrates the development of an Identity Lifecycle Management (JLM) automation framework using PowerShell and Active Directory.
+This project demonstrates the development of an Identity Lifecycle Management (JML) automation framework using PowerShell and Active Directory.
+
+The project was designed around core identity governance principles: enforcing least privilege through role-based access control, preventing permission creep through automated group management during role transitions and maintaining audit visibility through OU-based account retention rather than immediate deletion. Each phase of the automation suite reflects a deliberate security decision, not just a technical implementation.
 
 Rather than starting with a complete solution, this project was built iteratively—from basic scripting to a structured automation suite—reflecting how real-world IAM environments evolve over time.
 
@@ -14,7 +16,7 @@ Rather than starting with a complete solution, this project was built iterativel
 ### Active Directory OU Diagram
 ![OU Structure](images/OU-Diagram.png)
 
-*Seperation of Users and Groups to support RBAC and AGDLP nesting* 
+*Separation of Users and Groups to support RBAC and AGDLP nesting* 
 
 The focus was to:
 - Implement RBAC using AGDLP design
