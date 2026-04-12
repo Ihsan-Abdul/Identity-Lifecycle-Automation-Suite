@@ -9,29 +9,30 @@ The goal was to understand how identity works across systems—not just creating
 
 Instead of building a complete system upfront, the project was developed step-by-step:
 
-starting with manual AD setup
-moving into PowerShell automation
-extending identities into the cloud
-then adding access control and security
+- starting with manual AD setup
+- moving into PowerShell automation
+- extending identities into the cloud
+- then adding access control and security
 
 Each phase reflects a limitation that had to be identified and solved before moving forward.
 
 ## Engineering Approach & Evolution
 
-This system was not designed fully in advance. It evolved through iterative improvements across both on-prem and cloud environments.
-
+This system was not designed fully in advance. It evolved through iterative improvements across both on-prem and cloud environments, with each stage building on the last.
 
 ## On-Prem Foundation
 
-- Built structured OU hierarchy
+The project began with building a structured Active Directory environment:
+
+- Created OU hierarchy for departments
 - Implemented RBAC using AGDLP
 - Assigned access through groups instead of direct permissions
 
-Initial scripts worked but were repetitive, hardcoded, and not reusable.
+At this stage, initial scripts worked but were repetitive, hardcoded, and not reusable.
 
 ## Lifecycle Automation (JML)
 
-The next step was handling real identity changes:
+To move beyond static setup, the next step was handling real identity changes:
 
 Joiner → creating new users
 Mover → updating roles and departments
@@ -40,32 +41,32 @@ Leaver → removing access and disabling accounts
 
 ## Improvement — Structured Automation
 
-Scripts were rewritten to use:
+To support these lifecycle changes at scale, scripts were rewritten to:
 
-- variables and arrays
+- use variables and arrays
 - loop through user data
-- standardize how users and groups are created
+- standardize provisioning logic
 
-This evolved into full ***Joiner/Mover/Leaver (JML) Automation.***
+This marked the transition from one-off scripts to reusable automation and led into full ***Joiner / Mover / Leaver (JML) automation.***
 
 
 ## Identity Integrity Challenges
 
-During lifecycle changes issues appeared:
+As lifecycle automation expanded, issues began to appear:
 
 - Moving users changed their Distinguished Name (DN)
-- Scripts that depended on the old DN broke
+- Scripts depending on the old DN broke
 - Manager relationships could become invalid
 
-## Fix — Execution Order & Data Handling
+### Fix — Execution Order & Data Handling
 
 To resolve this:
 
 - reordered operations (update relationships before moving objects)
 - added validation checks
-- ensured scripts didn’t rely on outdated references
+- ensured scripts did not rely on outdated references
 
-This was the first point where the system had to be thought through, and not just scripted.
+This was the point where the system had to be designed carefully, not just scripted.
 
 ---
 *Full in depth On-Premise creation and automation found here: [Part 1: On-Prem Infrastructure](01-On-Prem-Infrastructure/README.md)*
@@ -78,11 +79,13 @@ After stabilizing the on-prem side, identities were synced into Microsoft Entra 
 
 At this point:
 
-- users existed in the cloud but had no access to services
-- An initial attempt to assign licenses failed with a 400 BadRequest.
+- users existed in the cloud
+- but had no access to services
+
+An initial attempt to assign licenses failed with a 400 BadRequest.
 
 
-### Root Cause
+## Root Cause
 
 Cloud provisioning required  `UsageLocation`. Without it the license assignment fails.
 
@@ -92,22 +95,27 @@ Testing showed that:
 
 `Update-MgUser -UsageLocation "CA"` had to be applied before assigning a license.
 
+This introduced the key concept of:
+
 Identity → Attributes → License → Service Access
 
 
 ## Moving from Manual to Automation (Cloud)
 
-At first the fix was applied manually. Then, into a script that combined attribute update + license assignment and added error handling.
+Initially, the fix was applied manually. 
+Then it evolved into:
+- a script that combined attribute update + license assignment
+-  structured  error handling for reliability
 
 ### Automation Progression
 
-Provisioning evolved through stages:
+Provisioning evolved through three stages:
 
-- manual terminal fixes: depended on manual execution.
-- single-user scripts: required selecting users one at a time.
-- loop-based automation engine: find all unlicensed users, loop through them automatically and apply fixes and assign licenses.
+- ***manual fixes:*** required direct intervention.
+- ***single-user scripts:*** reduced repition but stil manual.
+- ***loop-based automation engine:*** automatically find all unlicensed users, loop through them, apply fixes and assign licenses.
 
-This changed the workflow from manual provisioning to automated lifecycle provisioning.
+This transitioned the workflow from manual provisioning to automated lifecycle provisioning.
 
 ---
 *Full in depth Cloud intergration and provisioning here: [Part 2: Hybrid Cloud Integration](02-Cloud-Integration/README.md)*
@@ -122,7 +130,7 @@ Once users had access, control became the focus.
 - Enforced MFA across all users
 - Applied stricter controls to SharePoint
 
-## Device-Based Access (Intune)
+### Device-Based Access (Intune)
 
 Using Microsoft Intune:
 
@@ -150,13 +158,13 @@ This project applies layered access control rather than relying on identity alon
 Access decisions require more than valid credentials.
 - MFA enforced through Conditional Access
 - Device compliance enforced through Intune
-- Application-specific policies applied to sensitive resources
+- Application specific policies applied to sensitive resources
 
 Access is granted only after verifying:
-User Identity + Device State + Access Context
+- User Identity + Device State + Access Context
 
 ---
-*Full device and access controls here: [Part 3: Governance & Security](03-Governance-Compliance/README.md)*
+*Full access control and device security here: [Part 3: Governance & Security](03-Governance-Compliance/README.md)*
 
 ---
 
