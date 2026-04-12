@@ -9,10 +9,10 @@ The goal was to understand how identity works across systems—not just creating
 
 Instead of building a complete system upfront, the project was developed step-by-step:
 
-- starting with manual AD setup
-- moving into PowerShell automation
-- extending identities into the cloud
-- then adding access control and security
+starting with manual AD setup
+moving into PowerShell automation
+extending identities into the cloud
+then adding access control and security
 
 Each phase reflects a limitation that had to be identified and solved before moving forward.
 
