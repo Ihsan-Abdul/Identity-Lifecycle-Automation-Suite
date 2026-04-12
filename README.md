@@ -68,7 +68,7 @@ To resolve this:
 This was the first point where the system had to be thought through, and not just scripted.
 
 ---
-***Full in depth On-Premise creation and automation found here: [Part 1: On-Prem Infrastructure](01-On-Prem-Infrastructure/README.md)***
+**Full in depth On-Premise creation and automation found here: [Part 1: On-Prem Infrastructure](01-On-Prem-Infrastructure/README.md)**
 ---
 
 ## Cloud Integration (Entra ID)
