@@ -67,8 +67,9 @@ To resolve this:
 
 This was the first point where the system had to be thought through, and not just scripted.
 
-Full in depth On-Premise creation and automation found here: [Part 1: On-Prem Infrastructure](01-On-Prem-Infrastructure/README.md)
-
+---
+***Full in depth On-Premise creation and automation found here: [Part 1: On-Prem Infrastructure](01-On-Prem-Infrastructure/README.md)***
+---
 
 ## Cloud Integration (Entra ID)
 
@@ -106,6 +107,11 @@ Provisioning evolved through stages:
 - loop-based automation engine: find all unlicensed users, loop through them automatically and apply fixes and assign licenses.
 
 This changed the workflow from manual provisioning to automated lifecycle provisioning.
+
+---
+***View full in depth Cloud intergration and provisioning here: [Part 2: Hybrid Cloud Integration](02-Cloud-Integration/README.md)***
+
+---
 
 ## Access Control & Security
 
@@ -148,6 +154,10 @@ Access decisions require more than valid credentials.
 Access is granted only after verifying:
 User Identity + Device State + Access Context
 
+---
+***View full device and access controls here: [Part 3: Governance & Security](03-Governance-Compliance/README.md)***
+
+---
 
 ## Identity Governance
 
