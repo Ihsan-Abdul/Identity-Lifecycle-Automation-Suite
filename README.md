@@ -40,7 +40,7 @@ All scripts have been tested in an isolated lab environment with screenshot docu
 - [Technical Skills Demonstrated](#technical-skills-demonstrated)
 - [Project Outcome](#project-outcome)
 - [Part 2 — Hybrid Cloud Integration (Entra ID)](#part-2--hybrid-cloud-integration-entra-id)
-- [Phase 1](#phase-1--cloud-Sync)
+ - [Technical Implementation](#technical-implementation)
 
 ---
 # Part 1 - On Premise Infrastructure and Lifecycle
@@ -354,5 +354,58 @@ It reflects real IAM responsibilities, including:
 
 # Part 2 - Hybrid Cloud Integration (Entra ID)
 
-## Phase 1 - Cloud Sync
+## Technical Implementation
+
+Following the on-premises setup, the next step was extending the local directory to the cloud.
+
+#### Implementation of Microsoft Entra Connect
+
+- Downloaded and installed the Microsoft Entra Connect Sync Agent on the Windows Server 2022 Domain Controller.
+- Configured Domain and OU filtering to target the `Corporate` OU specifically.
+- This ensures only laboratory users and groups are synchronized, maintaining a clean cloud tenant.
+
+#### Implementation Note
+> By selecting "Sync selected domains and OUs," I prevented built-in system accounts and local infrastructure groups from cluttering the Entra ID portal, adhering to standard production best practices.
+
+[View Entra Connect Download](images/cloud-01-entra-connect-download.png)
+[View Domain/OU Filtering configuration](images/cloud-02-sync-ou.png)
+
+---
+
+#### Synchronization Troubleshooting (Time Skew)
+
+The first synchronization attempt failed to populate users in the Entra ID portal.
+
+**Issue Identified:**
+- The local VM system clock had drifted from the actual time.
+- Entra ID authentication tokens require precise time synchronization; the mismatch caused the sync agent to fail authentication with the cloud service.
+
+**Resolution:**
+- Reconfigured the Windows Time service to sync from an external NTP source (time.windows.com) instead of the inaccurate Local CMOS clock:
+- Triggered a manual delta sync via PowerShell:
+
+```powershell:
+
+w32tm /config /manualpeerlist:"time.windows.com,0x8" /syncfromflags:manual /update
+Restart-Service W32Time
+w32tm /resync /force
+```
+
+**Key Learning**
+- In a hybrid environment, time synchronization is a critical dependency. Even a small drift can invalidate security tokens and break the identity pipeline between on-premises and cloud.
+
+---
+
+***Verification of Cloud Identities***
+
+Once the time sync was resolved, the synchronization cycle completed successfully.
+
+**Results:**
+- Verified 18 users found within the Entra ID **All Users** blade.
+- Confirmed identities are marked as **Synced from on-premises**, maintaining the local AD as the Source of Authority.
+- Identities are created in an **Unlicensed** state, requiring a secondary automation step for service activation.
+
+[View 18 users synchronized in Entra ID](images/cloud-03-synced-users.png)
+
+
 
