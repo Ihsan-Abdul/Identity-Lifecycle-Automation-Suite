@@ -29,6 +29,14 @@ This system was not designed fully in advance. It evolved through iterative impr
 
 Initial scripts worked but were repetitive, hardcoded, and not reusable.
 
+## Lifecycle Automation (JML)
+
+The next step was handling real identity changes:
+
+Joiner → creating new users
+Mover → updating roles and departments
+Leaver → removing access and disabling accounts
+
 
 ## Improvement — Structured Automation
 
@@ -40,14 +48,6 @@ Scripts were rewritten to use:
 
 This evolved into full ***Joiner/Mover/Leaver (JML) Automation.***
 
-
-## Lifecycle Automation (JML)
-
-The next step was handling real identity changes:
-
-Joiner → creating new users
-Mover → updating roles and departments
-Leaver → removing access and disabling accounts
 
 ## Identity Integrity Challenges
 
@@ -66,6 +66,8 @@ To resolve this:
 - ensured scripts didn’t rely on outdated references
 
 This was the first point where the system had to be thought through, and not just scripted.
+
+Full in depth On-Premise creation and automation found here: [Part 1: On-Prem Infrastructure](01-On-Prem-Infrastructure/README.md)
 
 
 ## Cloud Integration (Entra ID)
