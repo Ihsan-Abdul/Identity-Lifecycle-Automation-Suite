@@ -1,5 +1,16 @@
 # Part 1 — On-Premises Infrastructure & Lifecycle
 
+### System Architecture & Workflow
+![JML Process Flow](images/jml.png)
+
+*Workflow of automated lifecyle scripts*
+
+### Active Directory OU Diagram
+![OU Structure](images/OU-Diagram.png)
+
+*Separation of Users and Groups to support RBAC and AGDLP nesting* 
+
+
 ## Technical Evolution
 
 ### Phase 1 — Foundational Scripting (Manual → Hardcoded Automation)
