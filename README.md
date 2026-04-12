@@ -41,6 +41,7 @@ All scripts have been tested in an isolated lab environment with screenshot docu
 - [Project Outcome](#project-outcome)
 - [Part 2 — Hybrid Cloud Integration (Entra ID)](#part-2--hybrid-cloud-integration-entra-id)
  - [Technical Implementation](#technical-implementation)
+ -  [Phase 1 — Conditional Access: MFA Enforcement](#phase-1---conditional-access-mfa-enforcement)
 
 ---
 # Part 1 — On-Premises Infrastructure & Lifecycle
@@ -413,7 +414,7 @@ Once the time sync was resolved, the synchronization cycle completed successfull
 
 With identities successfully synchronized, the next objective was to secure the cloud tenant. In a hybrid model, passwords alone are insufficient; multi-factor authentication (MFA) is required to protect against credential-based attacks.
 
-***Conditional Access: MFA Enforcement***
+**Conditional Access: MFA Enforcement**
 - I implemented a Conditional Access Policy to mandate MFA across the entire organization. This ensures that every sign-in attempt to any cloud application must be verified by a secondary factor.
 
 **Implementation Details:**
