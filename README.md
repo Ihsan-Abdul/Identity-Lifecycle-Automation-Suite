@@ -110,7 +110,7 @@ Provisioning evolved through stages:
 This changed the workflow from manual provisioning to automated lifecycle provisioning.
 
 ---
-*View full in depth Cloud intergration and provisioning here: [Part 2: Hybrid Cloud Integration](02-Cloud-Integration/README.md)*
+*Full in depth Cloud intergration and provisioning here: [Part 2: Hybrid Cloud Integration](02-Cloud-Integration/README.md)*
 
 ---
 
@@ -156,7 +156,7 @@ Access is granted only after verifying:
 User Identity + Device State + Access Context
 
 ---
-*View full device and access controls here: [Part 3: Governance & Security](03-Governance-Compliance/README.md)*
+*Full device and access controls here: [Part 3: Governance & Security](03-Governance-Compliance/README.md)*
 
 ---
 
