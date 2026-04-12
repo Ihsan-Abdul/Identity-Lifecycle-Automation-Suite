@@ -16,20 +16,12 @@ Instead of building a complete system upfront, the project was developed step-by
 
 Each phase reflects a limitation that had to be identified and solved before moving forward.
 
-### Engineering Approach & Evolution
+## Engineering Approach & Evolution
 
 This system was not designed fully in advance. It evolved through iterative improvements across both on-prem and cloud environments.
 
 
-### On-Prem Foundation
-
-- Built structured OU hierarchy
-- Implemented RBAC using AGDLP
-- Assigned access through groups instead of direct permissions
-
-Initial scripts worked but were repetitive, hardcoded, and not reusable.
-
-### On-Prem Foundation
+## On-Prem Foundation
 
 - Built structured OU hierarchy
 - Implemented RBAC using AGDLP
@@ -38,7 +30,7 @@ Initial scripts worked but were repetitive, hardcoded, and not reusable.
 Initial scripts worked but were repetitive, hardcoded, and not reusable.
 
 
-***Improvement — Structured Automation***
+## Improvement — Structured Automation
 
 Scripts were rewritten to use:
 
@@ -48,17 +40,8 @@ Scripts were rewritten to use:
 
 This evolved into full ***Joiner/Mover/Leaver (JML) Automation.***
 
-### Optimization & Lifecycle Automation
 
-Scripts were refactored to:
-
-- use variables and arrays
-- support bulk user creation
-- standardize provisioning logic
-
-This evolved into full Joiner / Mover / Leaver (JML) automation.
-
-### Lifecycle Automation (JML)
+## Lifecycle Automation (JML)
 
 The next step was handling real identity changes:
 
@@ -66,7 +49,7 @@ Joiner → creating new users
 Mover → updating roles and departments
 Leaver → removing access and disabling accounts
 
-***Identity Integrity Challenges***
+## Identity Integrity Challenges
 
 During lifecycle changes issues appeared:
 
@@ -74,7 +57,7 @@ During lifecycle changes issues appeared:
 - Scripts that depended on the old DN broke
 - Manager relationships could become invalid
 
-***Fix — Execution Order & Data Handling***
+## Fix — Execution Order & Data Handling
 
 To resolve this:
 
@@ -85,28 +68,21 @@ To resolve this:
 This was the first point where the system had to be thought through, and not just scripted.
 
 
-### Cloud Integration (Entra ID)
+## Cloud Integration (Entra ID)
 
 After stabilizing the on-prem side, identities were synced into Microsoft Entra ID.
 
 At this point:
 
-- users existed in the cloud
-- but had no access to services
+- users existed in the cloud but had no access to services
+- An initial attempt to assign licenses failed with a 400 BadRequest.
 
 
-
-***Cloud Provisiong Challenge***
-
-Users were present but had no licenses and couldn’t access Outlook or SharePoint.
-
-An initial attempt to assign licenses failed with a 400 BadRequest.
-
-***Root Cause***
+### Root Cause
 
 Cloud provisioning required  `UsageLocation`. Without it the license assignment fails.
 
-***Fix — Attribute Before Access***
+### Fix — Attribute Before Access
 
 Testing showed that:
 
@@ -115,11 +91,11 @@ Testing showed that:
 Identity → Attributes → License → Service Access
 
 
-### Moving from Manual to Automation (Cloud)
+## Moving from Manual to Automation (Cloud)
 
 At first the fix was applied manually. Then, into a script that combined attribute update + license assignment and added error handling.
 
-***Automation Progression***
+### Automation Progression
 
 Provisioning evolved through stages:
 
@@ -129,7 +105,7 @@ Provisioning evolved through stages:
 
 This changed the workflow from manual provisioning to automated lifecycle provisioning.
 
-### Access Control & Security
+## Access Control & Security
 
 Once users had access, control became the focus.
 
@@ -137,14 +113,14 @@ Once users had access, control became the focus.
 - Enforced MFA across all users
 - Applied stricter controls to SharePoint
 
-### Device-Based Access (Intune)
+## Device-Based Access (Intune)
 
 Using Microsoft Intune:
 
 - Defined device compliance policies
 - Required compliant devices for accessing SharePoint
 
-### Security & Access Model
+## Security & Access Model
 
 This project applies layered access control rather than relying on identity alone.
 
@@ -171,7 +147,7 @@ Access is granted only after verifying:
 User Identity + Device State + Access Context
 
 
-### Identity Governance
+## Identity Governance
 
 To maintain visibility over access:
 
@@ -187,7 +163,7 @@ To maintain visibility over access:
 | Device Security |	Microsoft Intune, Compliance Policies |
 
 
-### Project Structure
+## Project Structure
 Each section of the project focuses on a specific stage of the identity lifecycle:
 
 [Part 1: On-Prem Infrastructure](01-On-Prem-Infrastructure/README.md): AD build, RBAC (AGDLP), JML automation 
@@ -195,7 +171,7 @@ Each section of the project focuses on a specific stage of the identity lifecycl
 [Part 3: Governance & Security](03-Governance-Compliance/README.md): Conditional Access, MFA, Intune, device compliance 
 
 
-### What This Project Demonstrates
+## What This Project Demonstrates
 
 This project shows the progression from:
 
