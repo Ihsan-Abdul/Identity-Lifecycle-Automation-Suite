@@ -29,7 +29,7 @@ All scripts have been tested in an isolated lab environment with screenshot docu
 ---
 
 ## 📍 Table of Contents
-- [Part 1 — On-Premises Infrastructure & Lifecycle](#part-1--on-premises-infrastructure--lifecycle)
+- [Part 1 — On-Premises Infrastructure & Lifecycle](#part-1--on-premises-infrastructure--lifecyle)
  - [Technical Evolution](#technical-evolution)
   - [Phase 1 — Foundational Scripting](#phase-1--foundational-scripting-manual--hardcoded-automation)
   - [Phase 2 — Structured Automation](#phase-2--structured-automation-betternewou)
@@ -43,7 +43,7 @@ All scripts have been tested in an isolated lab environment with screenshot docu
  - [Technical Implementation](#technical-implementation)
 
 ---
-# Part 1 - On Premise Infrastructure and Lifecycle
+# Part 1 — On-Premises Infrastructure & Lifecycle
 
 ## Technical Evolution
 
@@ -352,7 +352,7 @@ It reflects real IAM responsibilities, including:
 
 ---
 
-# Part 2 - Hybrid Cloud Integration (Entra ID)
+# Part 2 — Hybrid Cloud Integration (Entra ID)
 
 ## Technical Implementation
 
@@ -382,7 +382,6 @@ The first synchronization attempt failed to populate users in the Entra ID porta
 
 **Resolution:**
 - Reconfigured the Windows Time service to sync from an external NTP source (time.windows.com) instead of the inaccurate Local CMOS clock:
-- Triggered a manual delta sync via PowerShell:
 
 ```powershell:
 
