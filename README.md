@@ -445,4 +445,106 @@ With identities successfully synchronized, the next objective was to secure the 
 
 ---
 
-## Phase 3 - 
+## Phase 3 — Cloud Lifecycle Automation (Microsoft Graph)
+
+This phase extends the Joiner lifecycle into the cloud, evolving from manual provisioning to a scalable automation model within Microsoft Entra ID.
+
+### Remote Management Infrastructure (Graph Connection)
+
+Before any provisioning could occur, a secure remote bridge was established to the cloud tenant. This represents the shift from local AD management to API-driven cloud administration.
+
+**Implementation**
+
+- **Command:** `Connect-MgGraph -Scopes "User.ReadWrite.All", "Organization.Read.All" -ContextScope Process -UseDeviceAuthentication`
+- **Access Model:** Delegated permissions with Least Privilege
+- **Security:** Scopes were restricted specifically to User and Directory modifications to ensure a hardened management session
+
+**Key Insight:** Cloud identity management is purely API-driven. Establishing a scoped, authenticated session is the first security boundary in cloud automation.
+
+![Remote Connection](images/RemoteConnection-Mgraph.png)
+![Scope Consent](images/Mgraph-permission.jpg)
+
+---
+
+### Terminal Discovery: Inline Licensing & Attribute Friction
+
+Following synchronization, 18 users existed in Entra ID in an unlicensed state. I initially attempted a manual license assignment directly inline in the terminal to establish a baseline.
+
+**Problem**
+
+Initial assignment failed with a `400 BadRequest`.
+
+**Root Cause & Inline Validation**
+
+- **Discovery:** Investigation revealed that Microsoft 365 requires the `UsageLocation` attribute (ISO Country Code) to be defined before a license seat can be legally assigned
+- **Manual Fix:** I tested the remediation inline for a single user:
+  - Updated attribute: `Update-MgUser -UserId <ID> -UsageLocation "CA"`
+  - Re-ran license: `Set-MgUserLicense -UserId <ID> -AddLicenses @{SkuId = $LicenseID}`
+- **Result:** Assignment succeeded. This exposed a critical provisioning dependency: **Identity → Attribute Remediation → License Assignment → Service Access**
+
+![Inline Terminal Fix](images/firstLicense-Location.png)
+
+---
+
+### Tactical Scripting (cloud-joiner.ps1)
+
+Once the manual fix was validated, I moved the logic from the terminal into a reusable script to ensure the process was repeatable and included error handling.
+
+**Technical Improvements:**
+- **Logic Grouping:** Combined the attribute update and licensing into a single try/catch block
+- **Parametrization:** Used `Read-Host` to allow for targeted user provisioning
+
+**The Engineering Bottleneck:**
+While functional, this script relied on manual triggers. I identified that asking for a user is not true automation; it is a digital workaround for a manual task that cannot scale for 18 users or an enterprise workforce.
+
+![Tactical Script Execution](images/license-script-proof.png)
+
+---
+
+### Enterprise Scaling: Provisioning Engine (cloud.joiner.loop.ps1)
+
+The final iteration evolved into an autonomous engine that removes the human from the loop by programmatically identifying the workload.
+
+**Key Features:**
+
+- **Automated Discovery:** The script queries the tenant for all users where `assignedLicenses/count -eq 0`, identifying "Staged" users without human input
+- **Bulk Remediation:** Programmatically applies the UsageLocation and license across the entire list in a single execution
+- **Operational Resiliency:** The foreach loop ensures that a failure on one account (e.g., a naming conflict) does not halt the entire provisioning batch
+
+**PowerShell Logic:**
+
+```powershell
+foreach ($User in $TargetUsers) {
+    try {
+        Update-MgUser -UserID $User.Id -UsageLocation "CA"
+        Set-MgUserLicense -UserID $User.Id -AddLicenses @{SkuId = $LicenseID}
+    } catch { 
+        Write-Host "Failed to license user: $($User.UserprincipalName)" 
+    }
+}
+```
+
+This represents a shift from:
+
+**Single-purpose terminal commands**
+
+to:
+
+**Modular, autonomous lifecycle automation**
+
+![Bulk Engine Execution](images/license-loop-proof.png)
+
+---
+
+### Execution Outcome
+
+A full provisioning cycle was executed across the 18 synchronized laboratory identities.
+
+**Results:**
+
+- **Provisioning Success:** 100% transition from Unlicensed to Active
+- **Attribute Integrity:** Confirmed UsageLocation (CA) applied consistently across the tenant
+- **Service Readiness:** Enabled immediate access to Exchange Online and SharePoint Online for the incoming workforce
+
+![Initial Staged State](images/00-initial-license.png)
+![Final Provisioned State](images/03-license-loop.png)
