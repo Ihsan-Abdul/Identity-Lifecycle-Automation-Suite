@@ -29,6 +29,7 @@ All scripts have been tested in an isolated lab environment with screenshot docu
 ---
 
 ## 📍 Table of Contents
+-[Part 1 - On Premise Infrastructure and Lifecycle](part-1--On-Premise-Infrastructure-and-Lifecycle)
 - [Technical Evolution](#technical-evolution)
   - [Phase 1 — Foundational Scripting](#phase-1--foundational-scripting-manual--hardcoded-automation)
   - [Phase 2 — Structured Automation](#phase-2--structured-automation-betternewou)
@@ -38,9 +39,11 @@ All scripts have been tested in an isolated lab environment with screenshot docu
 - [Troubleshooting Case Study](#troubleshooting-case-study)
 - [Technical Skills Demonstrated](#technical-skills-demonstrated)
 - [Project Outcome](#project-outcome)
-- [Next Phase](#next-phase)
+- [Part 2 - Hybrid Cloud Integration (Entra ID)](#part-2--hybrid-cloud-integration--(Entra-ID))
+- [Phase 1](#cloud-Sync)
 
 ---
+# Part 1 - On Premise Infrastructure and Lifecycle
 
 ## Technical Evolution
 
@@ -349,10 +352,6 @@ It reflects real IAM responsibilities, including:
 
 ---
 
-## Next Phase
+## Part 2 - Hybrid Cloud Integration (Entra ID)
 
-**Hybrid Identity Integration**
-- Extending on-premises automation to Microsoft Entra ID
-- Implementing Azure AD Connect sync logic
-- PowerShell-based cloud license assignment
-- Cloud-only group management
+
