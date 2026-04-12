@@ -1,52 +1,219 @@
-# Hybrid Identity Lifecycle Automation Lab
+# Hybrid Identity & Governance Framework
 
-## Project Overview
-This project demonstrates the implementation of a comprehensive Hybrid Identity & Governance Framework, bridging an on-premises Active Directory environment with a cloud-native Microsoft Entra ID tenant.
+## End-to-End JML Automation with Active Directory and Microsoft Entra ID
 
-The framework is built on a foundation of Identity Lifecycle Management (JML), automating the "Joiner, Mover, Leaver" process while enforcing enterprise-grade security standards. Rather than a static implementation, the project follows an iterative engineering path—evolving from ad-hoc scripting to scalable, API-driven automation and Zero Trust enforcement.
+### Project Overview
+This project documents the process of building a hybrid identity environment from the ground up, starting with on-premises Active Directory and extending into Microsoft Entra ID.
 
-### Core Principles & Governance Logic:
+The goal was to understand how identity works across systems—not just creating users, but managing their lifecycle, controlling access, and enforcing security as they move through an organization.
 
-**Defense in Depth:** Implementing security at every layer, from AGDLP group nesting on-premises to Conditional Access and MFA in the cloud.
+Instead of building a complete system upfront, the project was developed step-by-step:
 
-**Least Privilege & RBAC:** Ensuring users receive only the access required for their current role, with automated "swaps" during department transfers to eliminate permission creep.
+- starting with manual AD setup
+- moving into PowerShell automation
+- extending identities into the cloud
+- then adding access control and security
 
-**Zero Trust Architecture:** Moving beyond perimeter security by verifying the user, the device (Intune), and the context before granting access.
+Each phase reflects a limitation that had to be identified and solved before moving forward.
 
-**Identity Governance (IGA):** Maintaining audit readiness through automated reporting, tracking user entitlements, and identifying inactive account risks.
+### Engineering Approach & Evolution
 
-
-### Hybrid Environment Scope:
-
-| Environment | Components & Protocols |
-|-------------|------------------------|
-| On-Premises | Windows Server 2022, Active Directory DS, PowerShell Automation Suite (JML) |
-| Cloud (Entra ID) | Microsoft Graph API, Hybrid Sync, Enterprise Application Integration |
-| Authentication | SAML 2.0, OpenID Connect (OIDC), OAuth 2.0, Multi-Factor Authentication |
-| Endpoint & Security | Microsoft Intune (MDM), Conditional Access Policies, Device Compliance |
+This system was not designed fully in advance. It evolved through iterative improvements across both on-prem and cloud environments.
 
 
-The focus was to:
+### On-Prem Foundation
 
-- **Implement RBAC:** Standardizing access via AGDLP design and Entra ID security groups.
+- Built structured OU hierarchy
+- Implemented RBAC using AGDLP
+- Assigned access through groups instead of direct permissions
 
-- **Automate Lifecycle:** Bridging the Joiner-Mover-Leaver process from local AD to Cloud Apps.
+Initial scripts worked but were repetitive, hardcoded, and not reusable.
 
-- **Enforce Zero Trust:** Moving beyond simple passwords to device compliance and MFA.
+### On-Prem Foundation
 
-- **Ensure Governance:** Using PowerShell to audit entitlements and flag inactive identities.
+- Built structured OU hierarchy
+- Implemented RBAC using AGDLP
+- Assigned access through groups instead of direct permissions
 
-
-### Project Roadmap
-
-| Section | Focus | Key Technologies |
-|---------|-------|------------------|
-| [Part 1: On-Prem Infrastructure](01-On-Prem-Infrastructure/README.md) | AD Forest Build & JML Automation | PowerShell, AD DS, AGDLP |
-| [Part 2: Hybrid Cloud Integration](02-Cloud-Integration/README.md) | Graph API & Enterprise SSO | Entra ID, SAML, OIDC, Graph |
-| [Part 3: Governance & Security](03-Governance-Compliance/README.md) | Zero Trust & Compliance | Intune, Conditional Access |
+Initial scripts worked but were repetitive, hardcoded, and not reusable.
 
 
+***Improvement — Structured Automation***
 
-All scripts have been tested in an isolated lab environment with screenshot documentation available.
+Scripts were rewritten to use:
+
+- variables and arrays
+- loop through user data
+- standardize how users and groups are created
+
+This evolved into full ***Joiner/Mover/Leaver (JML) Automation.***
+
+### Optimization & Lifecycle Automation
+
+Scripts were refactored to:
+
+- use variables and arrays
+- support bulk user creation
+- standardize provisioning logic
+
+This evolved into full Joiner / Mover / Leaver (JML) automation.
+
+### Lifecycle Automation (JML)
+
+The next step was handling real identity changes:
+
+Joiner → creating new users
+Mover → updating roles and departments
+Leaver → removing access and disabling accounts
+
+***Identity Integrity Challenges***
+
+During lifecycle changes issues appeared:
+
+- Moving users changed their Distinguished Name (DN)
+- Scripts that depended on the old DN broke
+- Manager relationships could become invalid
+
+***Fix — Execution Order & Data Handling***
+
+To resolve this:
+
+- reordered operations (update relationships before moving objects)
+- added validation checks
+- ensured scripts didn’t rely on outdated references
+
+This was the first point where the system had to be thought through, and not just scripted.
+
+
+### Cloud Integration (Entra ID)
+
+After stabilizing the on-prem side, identities were synced into Microsoft Entra ID.
+
+At this point:
+
+- users existed in the cloud
+- but had no access to services
+
+
+
+***Cloud Provisiong Challenge***
+
+Users were present but had no licenses and couldn’t access Outlook or SharePoint.
+
+An initial attempt to assign licenses failed with a 400 BadRequest.
+
+***Root Cause***
+
+Cloud provisioning required  `UsageLocation`. Without it the license assignment fails.
+
+***Fix — Attribute Before Access***
+
+Testing showed that:
+
+`Update-MgUser -UsageLocation "CA"` had to be applied before assigning a license.
+
+Identity → Attributes → License → Service Access
+
+
+### Moving from Manual to Automation (Cloud)
+
+At first the fix was applied manually. Then, into a script that combined attribute update + license assignment and added error handling.
+
+***Automation Progression***
+
+Provisioning evolved through stages:
+
+- manual terminal fixes: depended on manual execution.
+- single-user scripts: required selecting users one at a time.
+- loop-based automation engine: find all unlicensed users, loop through them automatically and apply fixes and assign licenses.
+
+This changed the workflow from manual provisioning to automated lifecycle provisioning.
+
+### Access Control & Security
+
+Once users had access, control became the focus.
+
+- Implemented Conditional Access in Microsoft Entra ID
+- Enforced MFA across all users
+- Applied stricter controls to SharePoint
+
+### Device-Based Access (Intune)
+
+Using Microsoft Intune:
+
+- Defined device compliance policies
+- Required compliant devices for accessing SharePoint
+
+### Security & Access Model
+
+This project applies layered access control rather than relying on identity alone.
+
+### RBAC (Role-Based Access Control)
+
+- Access assigned through groups
+- No direct user-to-resource permissions
+- Role changes automatically update access
+
+### Least Privilege
+
+- Users receive only required access
+- Permissions are adjusted during lifecycle changes
+- Prevents permission creep
+
+### Zero Trust Access Controls
+
+Access decisions require more than valid credentials.
+- MFA enforced through Conditional Access
+- Device compliance enforced through Intune
+- Application-specific policies applied to sensitive resources
+
+Access is granted only after verifying:
+User Identity + Device State + Access Context
+
+
+### Identity Governance
+
+To maintain visibility over access:
+
+- built scripts to review user permissions
+- identified inactive accounts
+- ensured access aligned with current roles
+
+| Environment | Components|
+|-------------|-----------|
+| On-Premises |	Windows Server 2022, Active Directory, PowerShell |
+| Cloud	| Microsoft Entra ID, Microsoft Graph |
+| Access Control	| Conditional Access, MFA |
+| Device Security |	Microsoft Intune, Compliance Policies |
+
+
+### Project Structure
+Each section of the project focuses on a specific stage of the identity lifecycle:
+
+[Part 1: On-Prem Infrastructure](01-On-Prem-Infrastructure/README.md): AD build, RBAC (AGDLP), JML automation 
+[Part 2: Hybrid Cloud Integration](02-Cloud-Integration/README.md): Entra ID sync, Microsoft Graph, provisioning automation 
+[Part 3: Governance & Security](03-Governance-Compliance/README.md): Conditional Access, MFA, Intune, device compliance 
+
+
+### What This Project Demonstrates
+
+This project shows the progression from:
+
+`manual user management`
+
+to:
+
+`automated identity lifecycle with controlled access across hybrid systems`
+
+It reflects how identity systems are actually built:
+
+- starting simple
+- encountering limitations
+- fixing issues
+- and improving toward automation and control
+
+---
+
+*Note: All scripts have been tested in an isolated lab environment with screenshot documentation available.*
 
 ---
