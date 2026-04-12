@@ -368,6 +368,7 @@ Following the on-premises setup, the next step was extending the local directory
 > By selecting "Sync selected domains and OUs," I prevented built-in system accounts and local infrastructure groups from cluttering the Entra ID portal, adhering to standard production best practices.
 
 [View Entra Connect Download](images/cloud-01-entra-connect-download.png)
+
 [View Domain/OU Filtering configuration](images/cloud-02-sync-ou.png)
 
 ---
@@ -406,5 +407,34 @@ Once the time sync was resolved, the synchronization cycle completed successfull
 
 [View 18 users synchronized in Entra ID](images/cloud-03-synced-users.png)
 
+---
 
+## Phase 1 - Conditional Access: MFA Enforcement
+
+With identities successfully synchronized, the next objective was to secure the cloud tenant. In a hybrid model, passwords alone are insufficient; multi-factor authentication (MFA) is required to protect against credential-based attacks.
+
+***Conditional Access: MFA Enforcement***
+- I implemented a Conditional Access Policy to mandate MFA across the entire organization. This ensures that every sign-in attempt to any cloud application must be verified by a secondary factor.
+
+**Implementation Details:**
+- Policy Name: "Require MFA - All Users"
+- Assignments: Targeted all users within the tenant while explicitly excluding a break-glass administrative account to prevent lockout.
+- Target Resources: Applied to "All cloud apps" to ensure no security gaps in the authentication perimeter.
+- Grant Control: Set to "Require multi-factor authentication."
+
+**Implementation Note**
+- This policy aligns with Zero Trust principles by "verifying explicitly." By applying it to all cloud applications, I established a consistent security baseline that prevents attackers from targeting less-protected legacy apps to gain a foothold.
+
+[View MFA Policy Configuration](images/cloud-04-mfa-policy.png)
+
+
+**Verification of MFA Policy**
+- To validate the configuration, I performed a sign-in test with a synchronized laboratory user.
+
+**Results:**
+- Confirmed that the policy correctly interrupts the standard login flow.
+- Verified that users are prompted to register for Microsoft Authenticator, preventing access until a secondary identity factor is established.
+- This transition successfully moved the tenant from a "Password-Only" state to a secure, modern authentication model.
+
+[View MFA Enrollment Prompt](images/cloud-05-mfa-verification.png)
 
