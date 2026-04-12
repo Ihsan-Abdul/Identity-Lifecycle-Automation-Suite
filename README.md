@@ -7,13 +7,13 @@ The framework is built on a foundation of Identity Lifecycle Management (JML), a
 
 ### Core Principles & Governance Logic:
 
-*Defense in Depth:* Implementing security at every layer, from AGDLP group nesting on-premises to Conditional Access and MFA in the cloud.
+**Defense in Depth:** Implementing security at every layer, from AGDLP group nesting on-premises to Conditional Access and MFA in the cloud.
 
-*Least Privilege & RBAC:* Ensuring users receive only the access required for their current role, with automated "swaps" during department transfers to eliminate permission creep.
+**Least Privilege & RBAC:** Ensuring users receive only the access required for their current role, with automated "swaps" during department transfers to eliminate permission creep.
 
-*Zero Trust Architecture:* Moving beyond perimeter security by verifying the user, the device (Intune), and the context before granting access.
+**Zero Trust Architecture:** Moving beyond perimeter security by verifying the user, the device (Intune), and the context before granting access.
 
-*Identity Governance (IGA):* Maintaining audit readiness through automated reporting, tracking user entitlements, and identifying inactive account risks.
+**Identity Governance (IGA):** Maintaining audit readiness through automated reporting, tracking user entitlements, and identifying inactive account risks.
 
 
 ### Hybrid Environment Scope:
@@ -28,13 +28,13 @@ The framework is built on a foundation of Identity Lifecycle Management (JML), a
 
 The focus was to:
 
-- *Implement RBAC:* Standardizing access via AGDLP design and Entra ID security groups.
+- **Implement RBAC:** Standardizing access via AGDLP design and Entra ID security groups.
 
-- *Automate Lifecycle:* Bridging the Joiner-Mover-Leaver process from local AD to Cloud Apps.
+- **Automate Lifecycle:** Bridging the Joiner-Mover-Leaver process from local AD to Cloud Apps.
 
-- *Enforce Zero Trust:* Moving beyond simple passwords to device compliance and MFA.
+- **Enforce Zero Trust:** Moving beyond simple passwords to device compliance and MFA.
 
-- *Ensure Governance:* Using PowerShell to audit entitlements and flag inactive identities.
+- **Ensure Governance:** Using PowerShell to audit entitlements and flag inactive identities.
 
 
 ### Project Roadmap
