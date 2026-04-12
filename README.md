@@ -29,8 +29,8 @@ All scripts have been tested in an isolated lab environment with screenshot docu
 ---
 
 ## 📍 Table of Contents
--[Part 1 - On Premise Infrastructure and Lifecycle](part-1--On-Premise-Infrastructure-and-Lifecycle)
-- [Technical Evolution](#technical-evolution)
+- [Part 1 — On-Premises Infrastructure & Lifecycle](#part-1--on-premises-infrastructure--lifecycle)
+ - [Technical Evolution](#technical-evolution)
   - [Phase 1 — Foundational Scripting](#phase-1--foundational-scripting-manual--hardcoded-automation)
   - [Phase 2 — Structured Automation](#phase-2--structured-automation-betternewou)
   - [Phase 3 — Joiner Automation](#phase-3--joiner-automation-reusable-provisioning)
@@ -39,8 +39,8 @@ All scripts have been tested in an isolated lab environment with screenshot docu
 - [Troubleshooting Case Study](#troubleshooting-case-study)
 - [Technical Skills Demonstrated](#technical-skills-demonstrated)
 - [Project Outcome](#project-outcome)
-- [Part 2 - Hybrid Cloud Integration (Entra ID)](#part-2--hybrid-cloud-integration--(Entra-ID))
-- [Phase 1](#cloud-Sync)
+- [Part 2 — Hybrid Cloud Integration (Entra ID)](#part-2--hybrid-cloud-integration-entra-id)
+- [Phase 1](#phase-1--cloud-Sync)
 
 ---
 # Part 1 - On Premise Infrastructure and Lifecycle
@@ -352,6 +352,7 @@ It reflects real IAM responsibilities, including:
 
 ---
 
-## Part 2 - Hybrid Cloud Integration (Entra ID)
+# Part 2 - Hybrid Cloud Integration (Entra ID)
 
+## Phase 1 - Cloud Sync
 
