@@ -8,17 +8,6 @@ The project was designed around core identity governance principles: enforcing l
 Rather than starting with a complete solution, this project was built iteratively—from basic scripting to a structured automation suite—reflecting how real-world IAM environments evolve over time.
 
 
-### System Architecture & Workflow
-![JML Process Flow](images/jml.png)
-
-*Workflow of automated lifecyle scripts*
-
-### Active Directory OU Diagram
-![OU Structure](images/OU-Diagram.png)
-
-*Separation of Users and Groups to support RBAC and AGDLP nesting* 
-
-
 ## Technical Evolution
 
 ### Phase 1 — Foundational Scripting (Manual → Hardcoded Automation)
