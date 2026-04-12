@@ -439,3 +439,10 @@ With identities successfully synchronized, the next objective was to secure the 
 
 [View MFA Enrollment Prompt](images/cloud-05-mfa-verification.png)
 
+---
+
+## Phase 2 — Zero Trust Enforcement (Intune & Conditional Access)
+
+---
+
+## Phase 3 - 
