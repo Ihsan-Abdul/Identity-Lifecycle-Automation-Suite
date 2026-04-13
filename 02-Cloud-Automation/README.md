@@ -104,7 +104,7 @@ Initial assignment failed with a `400 BadRequest`.
 
 **Identity → Attribute Remediation → License Assignment → Service Access**
 
-![Inline Terminal Fix](images/06-cloud-firstLicense+Location.png.png)
+![Inline Terminal Fix](images/06-cloud-firstLicense+Location.png)
 
 ---
 
@@ -212,27 +212,4 @@ It reflects real IAM responsibilities including:
 - Hybrid identity synchronization
 - Cloud attribute management
 - Automated license provisioning at scale
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
