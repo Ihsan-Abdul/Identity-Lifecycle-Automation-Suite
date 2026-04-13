@@ -46,10 +46,12 @@ The second iteration focused on reducing repetition and improving scalability.
 - Continued use of splatting for readability
 
 **Example improvement:**
-` powershell
+powershell
+```
 foreach ($User in $UserToCreate) {
     New-ADUser @UserParams
-}`
+}
+```
 This transformed the script from:
 
 **Manual per-user creation**
@@ -97,21 +99,16 @@ This marked the shift to:
 **Implementation Note**
 - Instead of hardcoding user data, this script uses a param() block to accept dynamic input at runtime, allowing the same script to be used for any department. Also includes validation to prevent duplicate account creation.
 
-Powershell: 
-
-``param(``
-
-``[string]$Dept = "Marketing",``
-
-``[string]$FirstName = "Elena",``
-
-``[string]$LastName = "Mark",``
-
-``[string]$UserID = "emark",``
-
-``[string]$Title = "$($Dept) Staff"``
-
-``)``
+Powershell
+```
+param(
+[string]$Dept = "Marketing",
+[string]$FirstName = "Elena",
+[string]$LastName = "Mark",
+[string]$UserID = "emark",
+[string]$Title = "$($Dept) Staff"
+)
+```
 
 [View Joiner script here](scripts/3b-joiner.ps1)
 
@@ -181,13 +178,12 @@ to:
 **Implementation Note**
 - To prevent Permission Creep, the Mover script identifies the user's old role-based group and removes it in the same operation. This ensures the user only has the access required for their current role.
 
-Powershell: 
-
-``Add-ADGroupMember -Identity $NewGroup -Members $UserID -ErrorAction Stop``
-
-``Remove-ADGroupMember -Identity $OldGroup -Members $UserID -Confirm:$false -ErrorAction Stop``
-
-``Write-Host "$UserId has from $OldGroup to $NewGroup" ``
+Powershell
+```
+Add-ADGroupMember -Identity $NewGroup -Members $UserID -ErrorAction Stop
+Remove-ADGroupMember -Identity $OldGroup -Members $UserID -Confirm:$false -ErrorAction Stop
+Write-Host "$UserId has from $OldGroup to $NewGroup"
+```
 
 [View comprehensive Mover script here](scripts/4c-mover.ps1)
 
@@ -220,13 +216,13 @@ The leaver script represents the most complete stage of the lifecycle.
 **Implementation Note**
 - Before disabling a manager's account, the script identifies and reassigns all subordinates to prevent "orphaned" reporting lines:
 
-Powershell: 
-
-``$Subordinate = Get-ADUser -Filter "Manager -eq '$($User.DistinguishedName)'"  ``
-
-``if($Subordinate){
+Powershell
+```
+$Subordinate = Get-ADUser -Filter "Manager -eq '$($User.DistinguishedName)'"  
+if($Subordinate){
 $Subordinate | Set-ADUser -Manager $NewManager 
-Write-Host "Re-assigned $($Subordinate.Count) to $NewManager"``
+Write-Host "Re-assigned $($Subordinate.Count) to $NewManager"
+```
 
 [View Leaver script here](scripts/5-Leaver.ps1)
 
@@ -262,7 +258,7 @@ The execution order was corrected:
 - OU design and organization
 - RBAC implementation (AGDLP)
 - Group-based access control
-- Identity lifecycle management (JLM)
+- Identity lifecycle management (JML)
 
 **PowerShell**
 - Parameterized scripting (`param`)
@@ -285,9 +281,9 @@ The execution order was corrected:
 
 ---
 
-## Project Outcome
+##  Outcome
 
-This project demonstrates the transition from:
+This part demonstrates the transition from:
 
 **Manual AD administration**
 
@@ -303,7 +299,7 @@ It reflects real IAM responsibilities, including:
 ---
 **Execution and Results**
 
-- To validate the automation suite a full lifecycle test was done in the lab environment. The screenshot demonstrates:
+- A full lifecycle test was executed to validate the automation suite:
 
 1. Joiner: Successful provisioning of `emark` into the Marketing OU.
 
