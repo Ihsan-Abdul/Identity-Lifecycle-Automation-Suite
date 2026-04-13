@@ -12,8 +12,8 @@ and Microsoft Intune.
 
 The project was developed step-by-step instead of building a complete system upfront:
 
-- starting with manual AD setup
-- moving into PowerShell automation
+- starting with manual Active Directory setup
+- moving into PowerShell Automation
 - extending identities into the cloud
 - then adding access controls and security
 
