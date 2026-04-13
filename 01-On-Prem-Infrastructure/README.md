@@ -1,7 +1,7 @@
 # Part 1 — On-Premises Infrastructure & Lifecycle
 
 ### Overview
-This project demonstrates the development of an Identity Lifecycle Management (JML) automation framework using PowerShell and Active Directory.
+This portion of the project demonstrates the development of an Identity Lifecycle Management (JML) automation framework using PowerShell and Active Directory.
 
 The project was designed around core identity governance principles: enforcing least privilege through role-based access control, preventing permission creep through automated group management during role transitions and maintaining audit visibility through OU-based account retention rather than immediate deletion. Each phase of the automation suite reflects a deliberate security decision, not just a technical implementation.
 
