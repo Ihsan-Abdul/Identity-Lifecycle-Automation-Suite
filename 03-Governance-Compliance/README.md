@@ -1,19 +1,25 @@
 # Part 3: Governance and Security
 
 ## Overview
-This final phase completes the Hybrid setup by shifting the focus from identity creation to identity protection and oversight by implementing Zero Trust access principles.
 
-This phase demonstrates how to enforce context-aware access using Conditional Access and Intune, integrate modern SaaS applications via SSO protocols (SAML/OIDC), and maintain audit readiness through automated governance reporting.
+This final phase completes the hybrid setup by shifting the focus from identity creation to identity protection and oversight through Zero Trust access principles.
+
+This phase demonstrates how to:
+- Enforce context-aware access using Conditional Access and Intune
+- Integrate modern SaaS applications via SSO protocols (SAML/OIDC)
+- Maintain audit readiness through automated governance reporting
 
 ---
 
 ## Table of Contents
-- [Phase 1 — Zero Trust Access Enforcement](#phase-1--zero-trust-access-enforcement-conditional-access-and-intune)
+- [Phase 1 — Zero Trust Access Enforcement](#phase-1---zero-trust-access-enforcement-conditional-access-and-intune)
   - [Baseline MFA Policy](#baseline-mfa-policy)
   - [RBAC Enforcement (SharePoint Access Control)](#rbac-enforcement-sharepoint-access-control)
   - [Risk-Based Access Policy (SharePoint)](#risk-based-access-policy-sharepoint)
+  - [Troubleshooting - Hardware Compatibility & The "Break Glass" Necessity](#troubleshooting---hardware-compatibility--the-break-glass-necessity)
   - [Device Trust (Intune Integration)](#device-trust-intune-integration)
   - [Enforcement Model](#enforcement-model)
+  - [Key Outcome](#key-outcome)
 - [Phase 2 — Modern Authentication (SSO Integrations)](#phase-2--modern-authentication-sso-integrations)
 - [Phase 3 — Identity Governance (Access Review Reporting)](#phase-3--identity-governance-access-review-reporting)
 - [Technical Skills Demonstrated](#technical-skills-demonstrated)
@@ -24,7 +30,7 @@ This phase demonstrates how to enforce context-aware access using Conditional Ac
 
 ## Phase 1 - Zero Trust Access Enforcement (Conditional Access and Intune)
 
-In a hybrid environment, identity alone is not enough to grant access. This phase focuses on enforcing access controls based on who the user is, what device they are using, and what resource they are trying to access.
+In a hybrid environment, identity alone is not enough to grant access. This phase focuses on enforcing access controls based on **who** the user is, **what device** they are using, and **what resource** they are trying to access.
 
 
 ### Baseline MFA Policy
@@ -33,14 +39,14 @@ The first step was implementing a global Conditional Access policy in Microsoft 
 
 - Policy Logic:
   ```
-  User = Any
+  User = All Users
   App = All Cloud Apps
   Grant Access =  Require MFA
   ```
 
 This establishes the baseline that valid credentials alone are not sufficient for access.
 
-[View MFA Policy Configuration](images/01-mfa-policy.png)
+![View MFA Policy Configuration](images/01-mfa-policy.png)
 
 [View MFA User Prompt](images/02-mfa-policy-proof.png)
 
@@ -50,7 +56,7 @@ This establishes the baseline that valid credentials alone are not sufficient fo
 
 - In this environment, SharePoint is used as a central location for business data. Allowing access from any device introduces risk.
 
-- This introduced the need for stricter, resource-specific controls beyond MFA alone.
+- This highlighted that MFA alone is insufficient for protecting sensitive resources. Additional controls based on device trust and application context are needed.
 
   
 ### RBAC Enforcement (SharePoint Access Control)
@@ -58,10 +64,11 @@ This establishes the baseline that valid credentials alone are not sufficient fo
 Before applying Conditional Access, access to SharePoint was structured using role-based access control to ensure permissions are assigned by role, not by individual.
 
 **Group Structure:**
+
 - `Finance_Analyst` (Global Group) → Members (edit access)
 - `Finance_Manager` (Global Group) → Owners (full control)
 
-This ensures access is determined by role assignment, not direct permission grants — mirroring the AGDLP model implemented on-premises.
+This ensures access is determined by role assignment, not direct permission grants mirroring the AGDLP model implemented on-premises.
 
 [View Finance Portal Members](images/04-sharepoint-finance-members.png)
 
@@ -80,39 +87,40 @@ Grant    = Require MFA
           + Require device marked as compliant
 ```
 
-[View SharePoint Conditional Access Policy](images/03-SharePoint-policy.png)
+![View SharePoint Conditional Access Policy](images/03-SharePoint-policy.png)
 
 
 ### Troubleshooting - Hardware Compatibility & The "Break Glass" Necessity
 
-After enforcing the SharePoint Compliance policy, I attempted to verify access. Immediately upon attempting to access SharePoint, I was met with a device authentication prompt requiring the Microsoft Intune Company Portal.
-
-[Authenticate device pop-up](images/06a-block-unmanaged-device.png)
-
-When I attempted to register my personal device, the process failed. My physical hardware (macOS) did not meet the Intune requirement+. I was effectively locked out of the M365 Admin Center and SharePoint.
-
-[Preview that Mac is not up to date](images/06b-intune-hardware-incompatibility.png)
-
-To restore access and prevent future lockouts, I implemented a Break-Glass Group Strategy:
-
-Group Creation: I created a Security Group named Admin-Exclude.
-
-Policy Exclusion: I modified the Conditional Access policy to exclude this group, allowing me to bypass the hardware compliance requirement for administrative tasks.
-
-Identity Governance: I added my admin account to this group, successfully restoring access to the M365 Admin Center.
+After enforcing the policy, a real-world failure scenario occurred. Immediately upon attempting to access SharePoint, I was met with a device authentication prompt requiring the Microsoft Intune Company Portal.
 
 
-[Group exclusion logic inside the CA policy](images/06c-ca-admin-exclusion-fix.png)
+![Authenticate device pop-up](images/06a-block-unmanaged-device.png)
 
-*The Admin-Exclude group was also applied to the baseline MFA policy as a secondary precaution, ensuring administrative access is never fully blocked by a misconfigured policy.*
+When I attempted to register my personal device, the process failed. My physical hardware (macOS) did not meet the Intune requirement. I was locked out of the M365 Admin Center and SharePoint.
+
+![Preview that Mac is not up to date](images/06b-intune-hardware-incompatibility.png)
+
+**The Fix — Break-Glass Group Strategy:**
+
+1. **Group Creation:** I created a Security Group named Admin-Exclude.
+
+2. **Policy Exclusion:** I modified the Conditional Access policy to exclude this group, allowing me to bypass the hardware compliance requirement for administrative tasks.
+
+3. **Identity Governance:** I added my admin account to this group, successfully restoring access to the M365 Admin Center.
+
+
+![Group exclusion logic inside the CA policy](images/06c-ca-admin-exclusion-fix.png)
+
+ **Note:** The `Admin-Exclude` group was also applied to the baseline MFA policy as a secondary precaution, ensuring administrative access is never fully blocked by a misconfigured policy.
 
 **What I Learned and Why This Matters**
 
-In the enterprise, "Break-Glass" or Emergency Access Accounts are a non-negotiable security requirement.
+In the enterprise, "Break-Glass" or Emergency Access Accounts are a non-negotiable security requirement:
 
-Resilience: If a primary identity provider (like an MFA service) goes down or a global policy is misconfigured, these accounts ensure the organization isn't permanently locked out of its own tenant.
+- **Resilience:** If a primary identity provider (like an MFA service) goes down or a global policy is misconfigured, these accounts ensure the organization isn't permanently locked out of its own tenant
 
-Zero Trust Balance: This project highlights the delicate balance between high-security enforcement (Intune/MFA) and Business Continuity.
+- **Zero Trust Balance:** This project highlights the delicate balance between high-security enforcement (Intune/MFA) and Business Continuity
 
 
 ### Device Trust (Intune Integration)
@@ -121,12 +129,14 @@ To support the device compliance requirement, compliance standards were defined 
 
 **Compliance Requirements:**
 
-- Password Requirement: Minimum 8 characters to prevent brute-force attacks.
-- Microsoft Defender Antimalware: Required to be active to prevent "dirty" devices from entering the environment.
-- Firewall: Required to protect the endpoint in untrusted network environments.
+| Requirement | Purpose |
+|-------------|---------|
+| Password: Minimum 8 characters | Prevent brute-force attacks |
+| Microsoft Defender Antimalware | Prevent unmanaged or non-compliant devices from entering the environment |
+| Firewall enabled | Protect the endpoint in untrusted network environments |
 
-[View Intune Compliance Policy](images/07a-intune-policy.png)
-[View Intune Policy with Admin Exclusion](images/07b-intune-policy-exclusion.png)
+![View Intune Compliance Policy](images/07a-intune-policy.png)
+![View Intune Policy with Admin Exclusion](images/07b-intune-policy-exclusion.png)
 
 
 ### Enforcement Model
@@ -141,7 +151,7 @@ Device State (Compliant via Intune)
 Resource Policy (SharePoint Conditional Access)
 ```
 
-*This completes the Zero Trust triangle: **Verify Identity + Verify Device + Verify Context***
+*This completes the Zero Trust access model: ***Verify Identity + Verify Device + Enforce Resource Policy***.*
 
 
 ### Key Outcome
