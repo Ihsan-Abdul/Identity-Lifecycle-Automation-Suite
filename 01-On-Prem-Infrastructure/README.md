@@ -191,7 +191,7 @@ Powershell
 ```
 Add-ADGroupMember -Identity $NewGroup -Members $UserID -ErrorAction Stop
 Remove-ADGroupMember -Identity $OldGroup -Members $UserID -Confirm:$false -ErrorAction Stop
-Write-Host "$UserId has from $OldGroup to $NewGroup"
+Write-Host "$UserId has moved from $OldGroup to $NewGroup"
 ```
 
 [View comprehensive Mover script here](scripts/4c-mover.ps1)
@@ -231,6 +231,7 @@ $Subordinate = Get-ADUser -Filter "Manager -eq '$($User.DistinguishedName)'"
 if($Subordinate){
 $Subordinate | Set-ADUser -Manager $NewManager 
 Write-Host "Re-assigned $($Subordinate.Count) to $NewManager"
+}
 ```
 
 [View Leaver script here](scripts/5-Leaver.ps1)
