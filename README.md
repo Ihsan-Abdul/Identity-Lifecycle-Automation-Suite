@@ -7,7 +7,10 @@ This project documents the process of building a hybrid identity environment fro
 
 The goal was to understand how identity works across systems—not just creating users, but managing their lifecycle, controlling access, and enforcing security as they move through an organization.
 
-Instead of building a complete system upfront, the project was developed step-by-step:
+Built using Windows Server 2022, PowerShell, Microsoft Entra ID, Microsoft Graph, 
+and Microsoft Intune. 
+
+The project was developed step-by-step instead of building a complete system upfront:
 
 - starting with manual AD setup
 - moving into PowerShell automation
@@ -69,7 +72,7 @@ To resolve this:
 This was the point where the system had to be designed carefully, not just scripted.
 
 ---
-*Full in depth On-Premise creation and automation found here: [Part 1: On-Prem Infrastructure](01-On-Prem-Infrastructure/README.md)*
+*Full in-depth On-Premise creation and automation found here: [Part 1: On-Prem Infrastructure](01-On-Prem-Infrastructure/README.md)*
 
 ---
 
@@ -118,7 +121,7 @@ Provisioning evolved through three stages:
 This transitioned the workflow from manual provisioning to automated lifecycle provisioning.
 
 ---
-*Full in depth Cloud intergration and provisioning here: [Part 2: Hybrid Cloud Integration](02-Cloud-Integration/README.md)*
+*Full in-depth Cloud intergration and provisioning here: [Part 2: Hybrid Cloud Integration](02-Cloud-Integration/README.md)*
 
 ---
 
@@ -164,7 +167,7 @@ Access is granted only after verifying:
 - User Identity + Device State + Access Context
 
 ---
-*Full access control and device security here: [Part 3: Governance & Security](03-Governance-Compliance/README.md)*
+*Full in-depth access control and device security here: [Part 3: Governance & Security](03-Governance-Compliance/README.md)*
 
 ---
 
@@ -178,10 +181,12 @@ To maintain visibility over access:
 
 | Environment | Components|
 |-------------|-----------|
-| On-Premises |	Windows Server 2022, Active Directory, PowerShell |
-| Cloud	| Microsoft Entra ID, Microsoft Graph |
-| Access Control	| Conditional Access, MFA |
-| Device Security |	Microsoft Intune, Compliance Policies |
+| On-Premises | Windows Server 2022, Active Directory, PowerShell |
+| Cloud | Microsoft Entra ID, Microsoft Graph, SharePoint Online |
+| Scripting & Automation | PowerShell (AD Module, Microsoft Graph Module) |
+| Access Control | Conditional Access, MFA, SAML, OIDC |
+| Device Security | Microsoft Intune, Compliance Policies |
+| Governance | Access Reviews, Least Privilege, RBAC (AGDLP) |
 
 
 ## Project Structure
@@ -202,12 +207,11 @@ to:
 
 `automated identity lifecycle with controlled access across hybrid systems`
 
-It reflects how identity systems are actually built:
+It reflects how identity systems are actually built in production environments:
 
-- starting simple
-- encountering limitations
-- fixing issues
-- and improving toward automation and control
+- starting with a structured on-premises foundation
+- encountering real limitations and solving them through automation and careful design
+- and extending into cloud identity with enforced access controls and governance.
 
 ---
 
