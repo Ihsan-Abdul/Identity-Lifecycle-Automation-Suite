@@ -5,9 +5,19 @@ This final phase completes the "Hybrid: setup by shifting the focus from identit
 
 This phase demonstrates how to enforce context-aware access using Conditional Access and Intune, integrate modern SaaS applications via SSO protocols (SAML/OIDC), and maintain audit readiness through automated governance reporting.
 
+---
+
 ## Table of Contents
-
-
+- [Phase 1 — Zero Trust Access Enforcement](#phase-1--zero-trust-access-enforcement-conditional-access-and-intune)
+  - [Baseline MFA Policy](#baseline-mfa-policy)
+  - [RBAC Enforcement (SharePoint Access Control)](#rbac-enforcement-sharepoint-access-control)
+  - [Risk-Based Access Policy (SharePoint)](#risk-based-access-policy-sharepoint)
+  - [Device Trust (Intune Integration)](#device-trust-intune-integration)
+  - [Enforcement Model](#enforcement-model)
+- [Phase 2 — Modern Authentication (SSO Integrations)](#phase-2--modern-authentication-sso-integrations)
+- [Phase 3 — Identity Governance (Access Review Reporting)](#phase-3--identity-governance-access-review-reporting)
+- [Technical Skills Demonstrated](#technical-skills-demonstrated)
+- [Outcome](#outcome)
 
 ---
 
@@ -44,100 +54,73 @@ This establishes the baseline that valid credentials alone are not sufficient fo
 
 ### RBAC Enforcement (SharePoint Access Control)
 
-Before applying Conditional Access, access to SharePoint was structured using role-based access control.
+Before applying Conditional Access, access to SharePoint was structured using role-based access control to ensure permissions are assigned by role, not by individual.
 
-Using Microsoft SharePoint:
+**Group Structure:**
+- `Finance_Analyst` (Global Group) → Members (edit access)
+- `Finance_Manager` (Global Group) → Owners (full control)
 
-- Finance_Analyst (Global Group) → Members (edit access)
-- Finance_Manager (Global Group) → Owners (full control)
+This ensures access is determined by role assignment, not direct permission grants — mirroring the AGDLP model implemented on-premises.
 
-This ensures:
-
-- Access is determined by role, not individual assignment
-
-[Finance Portal Members](images/Finance_Analyst)
-[Finance Portal Owners](images/Finance_Manager)
+[View Finance Portal Members](images/Finance_Analyst)
+[View Finance Portal Owners](images/Finance_Manager)
 
 
 ### Risk-Based Access Policy (SharePoint)
 
-To secure this resource, a stricter Conditional Access policy was created specifically for SharePoint Online.
+A stricter Conditional Access policy was created specifically for SharePoint Online, requiring both MFA and a compliant device before access is granted.
 
-[SharePoint Conditional Access Policy](images/)
-
-Policy Logic 
+**Policy Logic:**
 ```
-User = All  
-Application = SharePoint Online  
-Grant Access = Require:
-    - MFA  
-    - Device marked as compliant
-
+User     = All Users
+App      = SharePoint Online
+Grant    = Require MFA
+          + Require device marked as compliant
 ```
+
+[View SharePoint Conditional Access Policy](images/)
+
 
 ### Device Trust (Intune Integration)
 
-To support this policy, device compliance was defined using Microsoft Intune.
+To support the device compliance requirement, compliance standards were defined in Microsoft Intune. Only devices meeting these conditions are considered trusted.
 
-***Compliance Requirements:***
+**Compliance Requirements:**
 
-- Minimum OS version
+- Minimum OS version enforced
 - Firewall enabled
-- BitLocker encryption
+- BitLocker encryption active
 
-Only devices meeting these conditions are considered trusted.
+[View Intune Compliance Policy](images/)
+[View Compliant Device State](images/)
 
-[Intune Compliance Policy](images/)
-[Compliant Device State](images/)
 
 
 ### Enforcement Model
 
-At this stage, access to SharePoint is only granted when all conditions are satisfied:
+Access to SharePoint is only granted when all three conditions are satisfied simultaneously:
 
 ```
-User Identity (MFA)  
-+  
-Device State (Compliant)  
-+  
-Resource Policy (SharePoint CA Policy)
+User Identity (MFA)
++
+Device State (Compliant via Intune)
++
+Resource Policy (SharePoint Conditional Access)
 ```
+
+*This completes the Zero Trust triangle: **Verify Identity + Verify Device + Verify Context***
+
 
 ### Key Outcome
 
 This phase demonstrates the implementation of Zero Trust access controls:
 
-- Identity alone is not trusted
-- Device health is verified
-- Access is restricted based on resource sensitivity
+- Identity alone is not trusted — MFA required
+- Device health is verified — Intune compliance enforced
+- Access is restricted based on resource sensitivity — SharePoint gets stricter controls than general apps
 - Access is evaluated per request, not assumed
 
-
-
-
-- The Problem: SharePoint contains sensitive corporate documentation. Access from an unmanaged or "unhealthy" device poses a data exfiltration risk.
-
-- The Solution: Integrated Microsoft Intune to define device compliance (Minimum OS version, active Firewall, and BitLocker encryption).
-
-[View SharePoint Policy Configuration](images/)
-
-Grant Control - Access to SharePoint is only granted if:
-
-- The User satisfies MFA.
-
-- The Device is marked as Compliant in Intune.
-
-[View Intune Compliance Policy & Enrolled Device State](images/)
-
-
-*Implementation Note: This completes the Zero Trust triangle: **Verify Identity (MFA) + Verify Device (Intune) + Verify Context (SharePoint Policy)**.*
-
-
-
-
-
-
-
+---
 
 
 ## Phase 2 — Modern Authentication (SSO Integrations)
@@ -162,6 +145,7 @@ Grant Control - Access to SharePoint is only granted if:
 
 
 
+---
 
 ## Phase 3 - Identity Governance (Access Review Reporting)
 
