@@ -78,7 +78,7 @@ Before any provisioning could occur, a secure remote bridge was established to t
 **Implementation:**
 - **Command:** `Connect-MgGraph -Scopes "User.ReadWrite.All", "Organization.Read.All" -ContextScope Process -UseDeviceAuthentication`
 - **Access Model:** Delegated permissions with least privilege
-- **Security:** Scopes were restricted specifically to User and Directory modifications to ensure a hardened management session
+- **Security:** Scopes were restricted specifically to User and Directory modifications
 
 **Key Insight:**
 - Cloud identity management is purely API-driven. Establishing a scoped, authenticated session is the first security boundary in cloud automation.
@@ -202,7 +202,7 @@ A full provisioning cycle was executed across all 18 synchronized laboratory ide
 
 This phase demonstrates the transition from:
 
-**Manual cloud provisioning**
+**Manual single purpose terminal cloud provisioning**
 
 to:
 
