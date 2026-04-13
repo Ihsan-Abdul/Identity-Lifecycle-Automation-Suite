@@ -115,13 +115,13 @@ Then it evolved into:
 Provisioning evolved through three stages:
 
 - ***manual fixes:*** required direct intervention.
-- ***single-user scripts:*** reduced repition but stil manual.
+- ***single-user scripts:*** reduced repetition but still manual.
 - ***loop-based automation engine:*** automatically find all unlicensed users, loop through them, apply fixes and assign licenses.
 
 This transitioned the workflow from manual provisioning to automated lifecycle provisioning.
 
 ---
-*Full in-depth Cloud intergration and provisioning here: [Part 2: Hybrid Cloud Integration](02-Cloud-Integration/README.md)*
+*Full in-depth Cloud integration and provisioning here: [Part 2: Hybrid Cloud Integration](02-Cloud-Integration/README.md)*
 
 ---
 
@@ -173,11 +173,10 @@ Access is granted only after verifying:
 
 ## Identity Governance
 
-To maintain visibility over access:
+- Generated entitlement reports from Active Directory identifying 
+  users, group memberships, and inactive accounts exceeding 30-day 
+  thresholds to maintain visibility over access.
 
-- built scripts to review user permissions
-- identified inactive accounts
-- ensured access aligned with current roles
 
 | Environment | Components|
 |-------------|-----------|
@@ -201,13 +200,9 @@ Each section of the project focuses on a specific stage of the identity lifecycl
 
 This project shows the progression from:
 
-`manual user management`
+`manual user management` to: `automated identity lifecycle with controlled access across hybrid systems`
 
-to:
-
-`automated identity lifecycle with controlled access across hybrid systems`
-
-It reflects how identity systems are actually built in production environments:
+It reflects how identity infrastructure is actually built and maintained in production environments by:
 
 - starting with a structured on-premises foundation
 - encountering real limitations and solving them through automation and careful design
