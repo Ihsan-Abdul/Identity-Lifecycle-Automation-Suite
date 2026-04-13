@@ -82,19 +82,47 @@ Grant    = Require MFA
 ![View SharePoint Conditional Access Policy](images/03-SharePoint-policy.png)
 
 
+### Troubleshooting - Hardware Compatibility & The "Break Glass" Necessity
+
+After enforcing the SharePoint Compliance policy, I attempted to verify access. Immediately upon attempting to access SharePoint, I was met with a device authentication prompt requiring the Microsoft Intune Company Portal.
+
+[Authenticate device pop-up](images/06a-block-unmanaged-device.png)
+
+When I attempted to register my management device, the process failed. My physical hardware (macOS) did not meet the Intune requirement+. I was effectively locked out of the M365 Admin Center and SharePoint.
+
+[Preview that Mac is not up to date](images/06b-intune-hardware-incompatibility.png)
+
+To restore access and prevent future lockouts, I implemented a Break-Glass Group Strategy:
+
+Group Creation: I created a Security Group named Admin-Exclude.
+
+Policy Exclusion: I modified the Conditional Access policy to exclude this group, allowing me to bypass the hardware compliance requirement for administrative tasks.
+
+Identity Governance: I added my admin account to this group, successfully restoring access to the M365 Admin Center.
+
+[Group exclusion logic inside the CA policy](images/06c-ca-admin-exclusion-fix.png)
+
+**What I Learned and Why This Matters**
+
+In the enterprise, "Break-Glass" or Emergency Access Accounts are a non-negotiable security requirement.
+
+Resilience: If a primary identity provider (like an MFA service) goes down or a global policy is misconfigured, these accounts ensure the organization isn't permanently locked out of its own tenant.
+
+Zero Trust Balance: This project highlights the delicate balance between high-security enforcement (Intune/MFA) and Business Continuity.
+
+
 ### Device Trust (Intune Integration)
 
 To support the device compliance requirement, compliance standards were defined in Microsoft Intune. Only devices meeting these conditions are considered trusted.
 
 **Compliance Requirements:**
 
-- Minimum OS version enforced
-- Firewall enabled
-- BitLocker encryption active
+- Password Requirement: Minimum 8 characters to prevent brute-force attacks.
+- Microsoft Defender Antimalware: Required to be active to prevent "dirty" devices from entering the environment.
+- Firewall: Required to protect the endpoint in untrusted network environments.
 
-[View Intune Compliance Policy](images/)
-[View Compliant Device State](images/)
-
+[View Intune Compliance Policy](images/07a-intune-policy.png)
+[View Intune Compliance Policy](images/07b-intune-policy-exclusion.png)
 
 
 ### Enforcement Model
