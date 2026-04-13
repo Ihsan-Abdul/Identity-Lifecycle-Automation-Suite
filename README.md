@@ -22,7 +22,7 @@ Each phase reflects a limitation that had to be identified and solved before mov
 ### System Architecture & Workflow
 ![JML Process Flow](images/jml.png)
 
-*Workflow of automated lifecyle scripts*
+*Workflow of automated lifecycle scripts*
 
 ### Active Directory OU Diagram
 ![OU Structure](images/OU-Diagram.png)
@@ -184,9 +184,7 @@ Access is granted only after verifying:
 
 ## Identity Governance
 
--Generated entitlement reports from Active Directory identifying 
-  users, group memberships, and inactive accounts exceeding 30-day 
-  thresholds to maintain visibility over access.
+-Generated entitlement reports from Active Directory identifying users, group memberships, and inactive accounts exceeding 30-day thresholds to maintain visibility over access.
 
 
 | Environment | Components|
