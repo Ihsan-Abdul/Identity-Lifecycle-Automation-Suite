@@ -40,9 +40,9 @@ The first step was implementing a global Conditional Access policy in Microsoft 
 
 This establishes the baseline that valid credentials alone are not sufficient for access.
 
-[View MFA Policy Configuration](images/01-mfa-policy.png)
+![View MFA Policy Configuration](images/01-mfa-policy.png)
 
-[View MFA User Prompt](images/02-mfa-policy-proof.png)
+![View MFA User Prompt](images/02-mfa-policy-proof.png)
 
 ### Problem — Sensitive Data Requires Stronger Controls
 
