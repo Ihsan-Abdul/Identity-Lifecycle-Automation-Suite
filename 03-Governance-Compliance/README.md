@@ -1,7 +1,7 @@
 # Part 3: Governance and Security
 
 ## Overview
-This final phase completes the "Hybrid" setup by shifting the focus from identity creation to identity protection and oversight by implementing Zero Trust access principles.
+This final phase completes the Hybrid setup by shifting the focus from identity creation to identity protection and oversight by implementing Zero Trust access principles.
 
 This phase demonstrates how to enforce context-aware access using Conditional Access and Intune, integrate modern SaaS applications via SSO protocols (SAML/OIDC), and maintain audit readiness through automated governance reporting.
 
@@ -40,9 +40,9 @@ The first step was implementing a global Conditional Access policy in Microsoft 
 
 This establishes the baseline that valid credentials alone are not sufficient for access.
 
-![View MFA Policy Configuration](images/01-mfa-policy.png)
+[View MFA Policy Configuration](images/01-mfa-policy.png)
 
-![View MFA User Prompt](images/02-mfa-policy-proof.png)
+[View MFA User Prompt](images/02-mfa-policy-proof.png)
 
 ### Problem — Sensitive Data Requires Stronger Controls
 
@@ -50,8 +50,9 @@ This establishes the baseline that valid credentials alone are not sufficient fo
 
 - In this environment, SharePoint is used as a central location for business data. Allowing access from any device introduces risk.
 
-- This introduced: 
+- This introduced the need for stricter, resource-specific controls beyond MFA alone.
 
+  
 ### RBAC Enforcement (SharePoint Access Control)
 
 Before applying Conditional Access, access to SharePoint was structured using role-based access control to ensure permissions are assigned by role, not by individual.
@@ -62,9 +63,9 @@ Before applying Conditional Access, access to SharePoint was structured using ro
 
 This ensures access is determined by role assignment, not direct permission grants — mirroring the AGDLP model implemented on-premises.
 
-![View Finance Portal Members](images/04-sharepoint-finance-members.png)
+[View Finance Portal Members](images/04-sharepoint-finance-members.png)
 
-![View Finance Portal Owners](images/05-sharepoint-finance-Owners.png)
+[View Finance Portal Owners](images/05-sharepoint-finance-Owners.png)
 
 
 ### Risk-Based Access Policy (SharePoint)
@@ -79,7 +80,7 @@ Grant    = Require MFA
           + Require device marked as compliant
 ```
 
-![View SharePoint Conditional Access Policy](images/03-SharePoint-policy.png)
+[View SharePoint Conditional Access Policy](images/03-SharePoint-policy.png)
 
 
 ### Troubleshooting - Hardware Compatibility & The "Break Glass" Necessity
@@ -88,7 +89,7 @@ After enforcing the SharePoint Compliance policy, I attempted to verify access. 
 
 [Authenticate device pop-up](images/06a-block-unmanaged-device.png)
 
-When I attempted to register my management device, the process failed. My physical hardware (macOS) did not meet the Intune requirement+. I was effectively locked out of the M365 Admin Center and SharePoint.
+When I attempted to register my personal device, the process failed. My physical hardware (macOS) did not meet the Intune requirement+. I was effectively locked out of the M365 Admin Center and SharePoint.
 
 [Preview that Mac is not up to date](images/06b-intune-hardware-incompatibility.png)
 
@@ -100,7 +101,10 @@ Policy Exclusion: I modified the Conditional Access policy to exclude this group
 
 Identity Governance: I added my admin account to this group, successfully restoring access to the M365 Admin Center.
 
+
 [Group exclusion logic inside the CA policy](images/06c-ca-admin-exclusion-fix.png)
+
+*The Admin-Exclude group was also applied to the baseline MFA policy as a secondary precaution, ensuring administrative access is never fully blocked by a misconfigured policy.*
 
 **What I Learned and Why This Matters**
 
@@ -122,7 +126,7 @@ To support the device compliance requirement, compliance standards were defined 
 - Firewall: Required to protect the endpoint in untrusted network environments.
 
 [View Intune Compliance Policy](images/07a-intune-policy.png)
-[View Intune Compliance Policy](images/07b-intune-policy-exclusion.png)
+[View Intune Policy with Admin Exclusion](images/07b-intune-policy-exclusion.png)
 
 
 ### Enforcement Model
