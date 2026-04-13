@@ -132,7 +132,7 @@ Provisioning evolved through three stages:
 This transitioned the workflow from manual provisioning to automated lifecycle provisioning.
 
 ---
-*Full in-depth Cloud integration and provisioning here: [Part 2: Hybrid Cloud Integration](02-Cloud-Integration/README.md)*
+*Full in-depth Cloud integration and provisioning here: [Part 2: Hybrid Cloud Integration](02-Cloud-Automation/README.md)*
 
 ---
 
