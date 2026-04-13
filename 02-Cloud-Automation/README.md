@@ -27,7 +27,8 @@ Following the on-premises setup, the next step was extending the local directory
 - By selecting "Sync selected domains and OUs," I prevented built-in system accounts and local infrastructure groups from cluttering the Entra ID portal, adhering to standard production best practices.
 
 [View Entra Connect Download](images/cloud-01-entra-connect-download.png)
-[View Domain/OU Filtering Configuration](images/cloud-02-sync-ou.png)
+
+[View Domain/OU Filtering Configuration](images/cloud-02-syn-ou.png)
 
 ---
 
