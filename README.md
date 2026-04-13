@@ -36,6 +36,8 @@ This system was not designed fully in advance. It evolved through iterative impr
 
 ## On-Prem Foundation
 
+[View on prem creation here:](01-On-Prem-Infrastructure)
+
 The project began with building a structured Active Directory environment:
 
 - Created OU hierarchy for departments
