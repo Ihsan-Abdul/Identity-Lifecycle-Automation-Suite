@@ -62,9 +62,9 @@ Before applying Conditional Access, access to SharePoint was structured using ro
 
 This ensures access is determined by role assignment, not direct permission grants — mirroring the AGDLP model implemented on-premises.
 
-[View Finance Portal Members](images/Finance_Analyst)
+![View Finance Portal Members](images/04-sharepoint-finance-members.png)
 
-[View Finance Portal Owners](images/Finance_Manager)
+![View Finance Portal Owners](images/05-sharepoint-finance-Owners.png)
 
 
 ### Risk-Based Access Policy (SharePoint)
@@ -79,7 +79,7 @@ Grant    = Require MFA
           + Require device marked as compliant
 ```
 
-[View SharePoint Conditional Access Policy](images/)
+![View SharePoint Conditional Access Policy](images/03-SharePoint-policy.png)
 
 
 ### Device Trust (Intune Integration)
