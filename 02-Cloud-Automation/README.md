@@ -15,7 +15,7 @@ Following the on-premises setup, the next step was extending the local directory
 
 [View Entra Connect Download](images/cloud-01-entra-connect-download.png)
 
-[View Domain/OU Filtering configuration](images/cloud-02-sync-ou.png)
+[View Domain/OU Filtering configuration](images/cloud-02-syn-ou.png)
 
 ---
 
