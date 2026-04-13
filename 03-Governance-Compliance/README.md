@@ -40,9 +40,9 @@ The first step was implementing a global Conditional Access policy in Microsoft 
 
 This establishes the baseline that valid credentials alone are not sufficient for access.
 
-[View MFA Policy Configuration](images/)
+[View MFA Policy Configuration](images/01-mfa-policy.png)
 
-[View MFA User Prompt](images/)
+[View MFA User Prompt](images/02-mfa-policy-proof.png)
 
 ### Problem — Sensitive Data Requires Stronger Controls
 
@@ -63,6 +63,7 @@ Before applying Conditional Access, access to SharePoint was structured using ro
 This ensures access is determined by role assignment, not direct permission grants — mirroring the AGDLP model implemented on-premises.
 
 [View Finance Portal Members](images/Finance_Analyst)
+
 [View Finance Portal Owners](images/Finance_Manager)
 
 
