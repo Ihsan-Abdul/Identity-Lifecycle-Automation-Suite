@@ -1,7 +1,7 @@
 # Part 3: Governance and Security
 
 ## Overview
-This final phase completes the "Hybrid: setup by shifting the focus from identity creation to identity protection and oversight by implementing Zero Trust access principles.
+This final phase completes the "Hybrid" setup by shifting the focus from identity creation to identity protection and oversight by implementing Zero Trust access principles.
 
 This phase demonstrates how to enforce context-aware access using Conditional Access and Intune, integrate modern SaaS applications via SSO protocols (SAML/OIDC), and maintain audit readiness through automated governance reporting.
 
