@@ -2,16 +2,6 @@
 
 ## End-to-End JML Automation with Active Directory and Microsoft Entra ID
 
-### System Architecture & Workflow
-![JML Process Flow](images/jml.png)
-
-*Workflow of automated lifecyle scripts*
-
-### Active Directory OU Diagram
-![OU Structure](images/OU-Diagram.png)
-
-*Separation of Users and Groups to support RBAC and AGDLP nesting* 
-
 ### Project Overview
 This project documents the process of building a hybrid identity environment from the ground up, starting with on-premises Active Directory and extending into Microsoft Entra ID.
 
@@ -28,6 +18,17 @@ The project was developed step-by-step instead of building a complete system upf
 - then adding access controls and security
 
 Each phase reflects a limitation that had to be identified and solved before moving forward.
+
+### System Architecture & Workflow
+![JML Process Flow](images/jml.png)
+
+*Workflow of automated lifecyle scripts*
+
+### Active Directory OU Diagram
+![OU Structure](images/OU-Diagram.png)
+
+*Separation of Users and Groups to support RBAC and AGDLP nesting* 
+
 
 ## Engineering Approach & Evolution
 
