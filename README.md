@@ -205,7 +205,9 @@ Access is granted only after verifying:
 Each section of the project focuses on a specific stage of the identity lifecycle:
 
 [Part 1: On-Prem Infrastructure](01-On-Prem-Infrastructure/README.md): AD build, RBAC (AGDLP), JML automation 
+
 [Part 2: Hybrid Cloud Integration](02-Cloud-Integration/README.md): Entra ID sync, Microsoft Graph, provisioning automation 
+
 [Part 3: Governance & Security](03-Governance-Compliance/README.md): Conditional Access, MFA, Intune, device compliance 
 
 
