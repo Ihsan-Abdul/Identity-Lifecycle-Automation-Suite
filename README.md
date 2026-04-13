@@ -198,9 +198,9 @@ Each section of the project focuses on a specific stage of the identity lifecycl
 
 ## What This Project Demonstrates
 
-This project shows the progression from:
-
-`manual user management` to: `automated identity lifecycle with controlled access across hybrid systems`
+This project shows the progression from `manual user management` 
+to `automated identity lifecycle with controlled access across 
+hybrid systems.`
 
 It reflects how identity infrastructure is actually built and maintained in production environments by:
 
