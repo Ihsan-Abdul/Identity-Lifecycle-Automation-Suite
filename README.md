@@ -30,6 +30,25 @@ Each phase reflects a limitation that had to be identified and solved before mov
 *Separation of Users and Groups to support RBAC and AGDLP nesting* 
 
 
+## Table of Contents
+
+### Project Sections
+- [Part 1: On-Prem Infrastructure](01-On-Prem-Infrastructure/README.md)
+- [Part 2: Hybrid Cloud Integration](02-Cloud-Automation/README.md)
+- [Part 3: Governance & Security](03-Governance-Compliance/README.md)
+
+### Overview
+- [Engineering Approach & Evolution](#engineering-approach--evolution)
+- [On-Prem Foundation](#on-prem-foundation)
+- [Lifecycle Automation (JML)](#lifecycle-automation-jml)
+- [Identity Integrity Challenges](#identity-integrity-challenges)
+- [Cloud Integration (Entra ID)](#cloud-integration-entra-id)
+- [Access Control & Security](#access-control--security)
+- [Identity Governance](#identity-governance)
+- [Project Structure](#project-structure)
+- [What This Project Demonstrates](#what-this-project-demonstrates)
+
+
 ## Engineering Approach & Evolution
 
 This system was not designed fully in advance. It evolved through iterative improvements across both on-prem and cloud environments, with each stage building on the last.
