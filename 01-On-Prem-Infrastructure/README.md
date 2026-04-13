@@ -7,6 +7,15 @@ The project was designed around core identity governance principles: enforcing l
 
 Rather than starting with a complete solution, this project was built iteratively—from basic scripting to a structured automation suite—reflecting how real-world IAM environments evolve over time.
 
+## Table of Contents
+- [Phase 1 — Foundational Scripting](#phase-1--foundational-scripting-manual--hardcoded-automation)
+- [Phase 2 — Structured Automation](#phase-2--structured-automation-betternewou)
+- [Phase 3 — Joiner Automation](#phase-3--joiner-automation-reusable-provisioning)
+- [Phase 4 — Mover Automation](#phase-4--mover-automation-access-control--permission-integrity)
+- [Phase 5 — Leaver Automation](#phase-5--leaver-automation-offboarding--security)
+- [Troubleshooting Case Study](#troubleshooting-case-study)
+- [Technical Skills Demonstrated](#technical-skills-demonstrated)
+- [Outcome](#outcome)
 
 ## Technical Evolution
 
@@ -281,7 +290,7 @@ The execution order was corrected:
 
 ---
 
-##  Outcome
+## Outcome
 
 This part demonstrates the transition from:
 
