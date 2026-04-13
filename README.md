@@ -20,12 +20,12 @@ The project was developed step-by-step instead of building a complete system upf
 Each phase reflects a limitation that had to be identified and solved before moving forward.
 
 ### System Architecture & Workflow
-![JML Process Flow](images/jml.png)
+![JML Process Flow](01-On-Prem-Infrastructure/images/jml.png)
 
 *Workflow of automated lifecycle scripts*
 
 ### Active Directory OU Diagram
-![OU Structure](images/OU-Diagram.png)
+![OU Structure](01-On-Prem-Infrastructure/images/OU-Diagram.png) 
 
 *Separation of Users and Groups to support RBAC and AGDLP nesting* 
 
