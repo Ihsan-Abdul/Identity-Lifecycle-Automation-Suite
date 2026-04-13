@@ -89,6 +89,8 @@ This was the point where the system had to be designed carefully, not just scrip
 
 ## Cloud Integration (Entra ID)
 
+[View cloud automation here:](02-Cloud-Automation)
+
 After stabilizing the on-prem side, identities were synced into Microsoft Entra ID.
 
 At this point:
