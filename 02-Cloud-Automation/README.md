@@ -121,7 +121,7 @@ Once the manual fix was validated, the logic was moved into a reusable script to
 **Engineering Bottleneck Identified:**
 Prompting for a single user is not true automation, it is a digital workaround for a manual task that cannot scale across 18 users or an enterprise workforce.
 
-![Tactical Script Execution](images/license-script-proof.png)
+![Tactical Script Execution](images/07-cloud-license-script-proof.png)
 
 ---
 
