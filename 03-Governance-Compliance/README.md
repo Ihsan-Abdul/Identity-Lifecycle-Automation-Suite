@@ -112,7 +112,8 @@ When I attempted to register my personal device, the process failed. My physical
 
 ![Group exclusion logic inside the CA policy](images/06c-ca-admin-exclusion-fix.png)
 
- **Note:** The `Admin-Exclude` group was also applied to the baseline MFA policy as a secondary precaution, ensuring administrative access is never fully blocked by a misconfigured policy.
+ **Note:** *The `Admin-Exclude` group was also applied to the baseline MFA policy as a secondary precaution, ensuring administrative access is never fully blocked by a misconfigured policy.*
+ 
 
 **What I Learned and Why This Matters**
 
