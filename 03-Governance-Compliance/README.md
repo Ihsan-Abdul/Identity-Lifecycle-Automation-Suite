@@ -263,10 +263,87 @@ This phase demonstrates SAML-based SSO integration within a hybrid identity envi
 
 ---
 
-## Phase 3 - Identity Governance (Access Review Reporting)
+##Phase 3 — Identity Governance & Risk Review
 
+###Overview
 
+After implementing lifecycle automation and access controls, the next step was adding visibility into how identities behave after provisioning.
 
+At this stage:
+
+-users could be created, updated, and offboarded through JML automation
+-access was controlled through RBAC and Conditional Access
+
+However, there was no way to identify:
+
+-which accounts were no longer being used
+-which users still had access they may not need
+-which accounts had elevated privileges
+
+This phase introduces a governance layer to review user activity and access within the environment.
+
+###Initial Script — Inactive User Audit
+
+The first script focused on identifying inactive users using `LastLogonDate`.
+
+***Functionality:***
+
+-retrieved all users from Active Directory
+-calculated inactivity based on last logon
+-applied thresholds to categorize accounts
+-displayed results using `Out-GridView`
+
+```
+($Today - $_.LastLogonDate).Days
+```
+
+This provided a basic view of account activity across the environment.
+
+###Limitation — No Access Context
+
+While this script identified inactive accounts, it did not account for access level.
+
+All users were treated equally, with no distinction between:
+
+-standard users
+-users with elevated privileges
+
+This meant inactive accounts could be identified, but not prioritized based on risk.
+
+Additionally, the output was limited to a visual grid, making it difficult to retain or reuse for review purposes.
+
+###Improved Script — Identity Risk Audit
+
+The script was extended to introduce privileged access review and structured reporting.
+
+***Improvements introduced:***
+
+-added group membership checks using `MemberOf`
+-defined a custom administrative group:
+  -`IT_Admin_GG`
+-flagged users with elevated access
+-introduced structured output fields:
+  -`Privileged`
+  -`RiskLevel`
+  -`RecommendedAction`
+- exported results to CSV for reporting
+```
+$PrivilegedGroups = @("IT_Admin_GG")
+$Results | Export-Csv -Path ".\reports\identity-risk-audit.csv" -NoTypeInformation
+```
+
+***Implementation Note:***
+Privileged access in this environment is determined by membership in the IT_Admin_GG group.
+Inactivity is evaluated using LastLogonDate, which is sufficient for this lab but may not reflect real-time activity in production environments.
+
+###Outcome
+
+The script now supports:
+
+-identifying inactive accounts
+-detecting privileged access
+-prioritizing users based on risk
+-generating exportable governance reports
 
 
 
