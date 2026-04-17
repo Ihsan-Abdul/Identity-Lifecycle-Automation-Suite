@@ -263,9 +263,10 @@ This phase demonstrates SAML-based SSO integration within a hybrid identity envi
 
 ---
 
-##Phase 3 — Identity Governance & Risk Review
 
-###Overview
+## Phase 3 — Identity Governance & Risk Review
+
+### Overview 
 
 After implementing lifecycle automation and access controls, the next step was adding visibility into how identities behave after provisioning.
 
@@ -282,7 +283,7 @@ However, there was no way to identify:
 
 This phase introduces a governance layer to review user activity and access within the environment.
 
-###Initial Script — Inactive User Audit
+### Initial Script — Inactive User Audit
 
 The first script focused on identifying inactive users using `LastLogonDate`.
 
@@ -299,7 +300,7 @@ The first script focused on identifying inactive users using `LastLogonDate`.
 
 This provided a basic view of account activity across the environment.
 
-###Limitation — No Access Context
+###  Limitation — No Access Context
 
 While this script identified inactive accounts, it did not account for access level.
 
@@ -336,7 +337,7 @@ $Results | Export-Csv -Path ".\reports\identity-risk-audit.csv" -NoTypeInformati
 Privileged access in this environment is determined by membership in the IT_Admin_GG group.
 Inactivity is evaluated using LastLogonDate, which is sufficient for this lab but may not reflect real-time activity in production environments.
 
-###Outcome
+### Outcome
 
 The script now supports:
 
@@ -344,6 +345,9 @@ The script now supports:
 -detecting privileged access
 -prioritizing users based on risk
 -generating exportable governance reports
+
+
+
 
 
 
