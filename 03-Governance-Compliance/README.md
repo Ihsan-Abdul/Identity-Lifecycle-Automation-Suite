@@ -31,7 +31,7 @@ This phase demonstrates how to:
 ## Phase 1 - Zero Trust Access Enforcement (Conditional Access and Intune)
 
 In a hybrid environment, identity alone is not enough to grant access. This phase focuses on enforcing access controls based on **who** the user is, **what device** they are using, and **what resource** they are trying to access.
-
+--
 
 ### Baseline MFA Policy
 
@@ -57,7 +57,7 @@ This establishes the baseline that valid credentials alone are not sufficient fo
 - In this environment, SharePoint is used as a central location for business data. Allowing access from any device introduces risk.
 
 - This highlighted that MFA alone is insufficient for protecting sensitive resources. Additional controls based on device trust and application context are needed.
-
+--
   
 ### RBAC Enforcement (SharePoint Access Control)
 
@@ -88,7 +88,7 @@ Grant    = Require MFA
 ```
 
 [View SharePoint Conditional Access Policy](images/03-SharePoint-policy.png)
-
+--
 
 ### Troubleshooting - Hardware Compatibility & The "Break Glass" Necessity
 
@@ -122,7 +122,7 @@ In the enterprise, "Break-Glass" or Emergency Access Accounts are a non-negotiab
 - **Resilience:** If a primary identity provider (like an MFA service) goes down or a global policy is misconfigured, these accounts ensure the organization isn't permanently locked out of its own tenant
 
 - **Zero Trust Balance:** This project highlights the delicate balance between high-security enforcement (Intune/MFA) and Business Continuity
-
+--
 
 ### Device Trust (Intune Integration)
 
@@ -136,9 +136,9 @@ To support the device compliance requirement, compliance standards were defined 
 | Microsoft Defender Antimalware | Prevent unmanaged or non-compliant devices from entering the environment |
 | Firewall enabled | Protect the endpoint in untrusted network environments |
 
-![View Intune Compliance Policy](images/07a-intune-policy.png)
-![View Intune Policy with Admin Exclusion](images/07b-intune-policy-exclusion.png)
-
+[View Intune Compliance Policy](images/07a-intune-policy.png)
+[View Intune Policy with Admin Exclusion](images/07b-intune-policy-exclusion.png)
+--
 
 ### Enforcement Model
 
@@ -153,7 +153,7 @@ Resource Policy (SharePoint Conditional Access)
 ```
 
 *This completes the Zero Trust access model: ***Verify Identity + Verify Device + Enforce Resource Policy***.*
-
+--
 
 ### Outcome
 
@@ -174,7 +174,7 @@ This phase demonstrates the implementation of Zero Trust access controls:
 With Zero Trust access controls enforcing MFA and device compliance, the next step was enabling authentication across enterprise applications without introducing additional credentials.
 
 This phase focuses on configuring SAML 2.0 Single Sign-On (SSO) in Microsoft Entra ID to integrate external applications, allowing users to authenticate once and access assigned resources through a centralized identity provider.
-
+--
 ### SAML Application Integration
 
 To demonstrate SSO, a custom SAML 2.0 application was configured in Microsoft Entra ID.
@@ -192,7 +192,7 @@ While modern applications often use OpenID Connect (OIDC), SAML remains widely u
 
 The Reply URL was set to https://jwt.ms to allow validation of the SAML response without requiring a live application backend.
 
-![Basic SAML Configuration](images/08-saml-basic-config.png)
+[Basic SAML Configuration](images/08-saml-basic-config.png)
 
 
 
@@ -205,7 +205,7 @@ Following the AGDLP pattern established in Phase 1, access was granted using gro
 This enforces the Principle of Least Privilege. 
 
 [Group Assignment](images/09-user-assignment.png)
-
+--
 
 ### SAML Handshake Validation
 
@@ -232,7 +232,7 @@ By intercepting the SAML POST request, the assertion issued by Entra ID was insp
 
 
 [SAML-tracer Response](images/11-saml-tracer-proof.png)
-
+--
 
 ### Troubleshooting — No Backend Application
 
@@ -250,7 +250,7 @@ The test application has no actual backend service to receive the SAML response.
 - doesn't naturally decode or display the XML packets used by the SAML protocol.
 
 [Token Validation](images/10-saml-token-page.png)
-
+--
 
 ### Outcome
 
@@ -282,6 +282,7 @@ However, there was no way to identify:
 -which accounts had elevated privileges
 
 This phase introduces a governance layer to review user activity and access within the environment.
+--
 
 ### Initial Script — Inactive User Audit
 
@@ -299,6 +300,7 @@ The first script focused on identifying inactive users using `LastLogonDate`.
 ```
 
 This provided a basic view of account activity across the environment.
+--
 
 ###  Limitation — No Access Context
 
@@ -312,6 +314,7 @@ All users were treated equally, with no distinction between:
 This meant inactive accounts could be identified, but not prioritized based on risk.
 
 Additionally, the output was limited to a visual grid, making it difficult to retain or reuse for review purposes.
+--
 
 ### Improved Script — Identity Risk Audit
 
