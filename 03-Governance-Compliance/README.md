@@ -46,7 +46,7 @@ The first step was implementing a global Conditional Access policy in Microsoft 
 
 This establishes the baseline that valid credentials alone are not sufficient for access.
 
-![View MFA Policy Configuration](images/01-mfa-policy.png)
+[View MFA Policy Configuration](images/01-mfa-policy.png)
 
 [View MFA User Prompt](images/02-mfa-policy-proof.png)
 
@@ -87,7 +87,7 @@ Grant    = Require MFA
           + Require device marked as compliant
 ```
 
-![View SharePoint Conditional Access Policy](images/03-SharePoint-policy.png)
+[View SharePoint Conditional Access Policy](images/03-SharePoint-policy.png)
 
 
 ### Troubleshooting - Hardware Compatibility & The "Break Glass" Necessity
@@ -95,11 +95,11 @@ Grant    = Require MFA
 After enforcing the policy, a real-world failure scenario occurred. Immediately upon attempting to access SharePoint, I was met with a device authentication prompt requiring the Microsoft Intune Company Portal.
 
 
-![Authenticate device pop-up](images/06a-block-unmanaged-device.png)
+[Authenticate device pop-up](images/06a-block-unmanaged-device.png)
 
 When I attempted to register my personal device, the process failed. My physical hardware (macOS) did not meet the Intune requirement. I was locked out of the M365 Admin Center and SharePoint.
 
-![Preview that Mac is not up to date](images/06b-intune-hardware-incompatibility.png)
+[Preview that Mac is not up to date](images/06b-intune-hardware-incompatibility.png)
 
 **The Fix — Break-Glass Group Strategy:**
 
@@ -110,7 +110,7 @@ When I attempted to register my personal device, the process failed. My physical
 3. **Identity Governance:** I added my admin account to this group, successfully restoring access to the M365 Admin Center.
 
 
-![Group exclusion logic inside the CA policy](images/06c-ca-admin-exclusion-fix.png)
+[Group exclusion logic inside the CA policy](images/06c-ca-admin-exclusion-fix.png)
 
  **Note:** *The `Admin-Exclude` group was also applied to the baseline MFA policy as a secondary precaution, ensuring administrative access is never fully blocked by a misconfigured policy.*
  
@@ -167,15 +167,15 @@ This phase demonstrates the implementation of Zero Trust access controls:
 ---
 
 
-##Phase 2 — Modern Authentication (SSO Integrations)
+## Phase 2 — Modern Authentication (SSO Integrations)
 
-###Overview
+### Overview
 
 With Zero Trust access controls enforcing MFA and device compliance, the next step was enabling authentication across enterprise applications without introducing additional credentials.
 
 This phase focuses on configuring SAML 2.0 Single Sign-On (SSO) in Microsoft Entra ID to integrate external applications, allowing users to authenticate once and access assigned resources through a centralized identity provider.
 
-###SAML Application Integration
+### SAML Application Integration
 
 To demonstrate SSO, a custom SAML 2.0 application was configured in Microsoft Entra ID.
 
@@ -196,7 +196,7 @@ The Reply URL was set to https://jwt.ms to allow validation of the SAML response
 
 
 
-###Access Control — Group-Based Assignment
+### Access Control — Group-Based Assignment
 
 Following the AGDLP pattern established in Phase 1, access was granted using group membership rather than individual assignment, maintaining the RBAC model.
 
@@ -231,7 +231,7 @@ By intercepting the SAML POST request, the assertion issued by Entra ID was insp
 | AttributeStatement | PASS | Confirmed that `givenname`, `surname`, and `email` were mapped correctly. |
 
 
-![SAML-tracer Response](images/11-saml-tracer-proof.png)
+[SAML-tracer Response](images/11-saml-tracer-proof.png)
 
 
 ### Troubleshooting — No Backend Application
@@ -252,7 +252,7 @@ The test application has no actual backend service to receive the SAML response.
 [Token Validation](images/10-saml-token-page.png)
 
 
-###Key Outcome
+### Outcome
 
 This phase demonstrates SAML-based SSO integration within a hybrid identity environment:
 
@@ -313,7 +313,7 @@ This meant inactive accounts could be identified, but not prioritized based on r
 
 Additionally, the output was limited to a visual grid, making it difficult to retain or reuse for review purposes.
 
-###Improved Script — Identity Risk Audit
+### Improved Script — Identity Risk Audit
 
 The script was extended to introduce privileged access review and structured reporting.
 
