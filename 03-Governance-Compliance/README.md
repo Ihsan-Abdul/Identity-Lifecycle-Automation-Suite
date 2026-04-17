@@ -261,58 +261,6 @@ This phase demonstrates SAML-based SSO integration within a hybrid identity envi
 ***Validation:*** Successful SAML assertion issuance confirmed through traffic inspection
 ***Troubleshooting:*** Clear distinction between authentication success and application-layer failure
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-In this phase, I transitioned from securing Microsoft-native resources (SharePoint) to integrating external SaaS applications. This demonstrates the ability to act as a Centralized Identity Provider (IdP) for the entire enterprise.
-
-### Protocol: SAML 2.0 (The Enterprise Standard)
-
-I configured a SAML-based integration to demonstrate how legacy and enterprise web applications receive identity assertions.
-
-Service Provider: jwt.ms (SAML Test Application)
-
-Configuration: Defined Entity ID and Assertion Consumer Service (ACS) URL to establish a secure handshake.
-
-Validation: Used SAML Tracer to intercept the XML assertion, verifying that attributes (UPN, Display Name) for the hybrid-synced user mvance were successfully passed.
-
-[INSERT YOUR SAML TRACER SCREENSHOT HERE]
-
-
-### Outcome
-Technical Insight: The screenshot confirms the Subject matches the on-premises UPN, proving the end-to-end success of the Hybrid Identity lifecycle.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ---
 
 ## Phase 3 - Identity Governance (Access Review Reporting)
