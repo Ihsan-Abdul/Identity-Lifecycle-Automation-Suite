@@ -31,6 +31,7 @@ This phase demonstrates how to:
 ## Phase 1 - Zero Trust Access Enforcement (Conditional Access and Intune)
 
 In a hybrid environment, identity alone is not enough to grant access. This phase focuses on enforcing access controls based on **who** the user is, **what device** they are using, and **what resource** they are trying to access.
+
 --
 
 ### Baseline MFA Policy
@@ -57,6 +58,7 @@ This establishes the baseline that valid credentials alone are not sufficient fo
 - In this environment, SharePoint is used as a central location for business data. Allowing access from any device introduces risk.
 
 - This highlighted that MFA alone is insufficient for protecting sensitive resources. Additional controls based on device trust and application context are needed.
+  
 --
   
 ### RBAC Enforcement (SharePoint Access Control)
@@ -88,6 +90,7 @@ Grant    = Require MFA
 ```
 
 [View SharePoint Conditional Access Policy](images/03-SharePoint-policy.png)
+
 --
 
 ### Troubleshooting - Hardware Compatibility & The "Break Glass" Necessity
@@ -122,6 +125,7 @@ In the enterprise, "Break-Glass" or Emergency Access Accounts are a non-negotiab
 - **Resilience:** If a primary identity provider (like an MFA service) goes down or a global policy is misconfigured, these accounts ensure the organization isn't permanently locked out of its own tenant
 
 - **Zero Trust Balance:** This project highlights the delicate balance between high-security enforcement (Intune/MFA) and Business Continuity
+
 --
 
 ### Device Trust (Intune Integration)
@@ -138,6 +142,7 @@ To support the device compliance requirement, compliance standards were defined 
 
 [View Intune Compliance Policy](images/07a-intune-policy.png)
 [View Intune Policy with Admin Exclusion](images/07b-intune-policy-exclusion.png)
+
 --
 
 ### Enforcement Model
@@ -153,6 +158,7 @@ Resource Policy (SharePoint Conditional Access)
 ```
 
 *This completes the Zero Trust access model: ***Verify Identity + Verify Device + Enforce Resource Policy***.*
+
 --
 
 ### Outcome
@@ -174,6 +180,7 @@ This phase demonstrates the implementation of Zero Trust access controls:
 With Zero Trust access controls enforcing MFA and device compliance, the next step was enabling authentication across enterprise applications without introducing additional credentials.
 
 This phase focuses on configuring SAML 2.0 Single Sign-On (SSO) in Microsoft Entra ID to integrate external applications, allowing users to authenticate once and access assigned resources through a centralized identity provider.
+
 --
 ### SAML Application Integration
 
@@ -205,6 +212,7 @@ Following the AGDLP pattern established in Phase 1, access was granted using gro
 This enforces the Principle of Least Privilege. 
 
 [Group Assignment](images/09-user-assignment.png)
+
 --
 
 ### SAML Handshake Validation
@@ -232,6 +240,7 @@ By intercepting the SAML POST request, the assertion issued by Entra ID was insp
 
 
 [SAML-tracer Response](images/11-saml-tracer-proof.png)
+
 --
 
 ### Troubleshooting — No Backend Application
@@ -250,6 +259,7 @@ The test application has no actual backend service to receive the SAML response.
 - doesn't naturally decode or display the XML packets used by the SAML protocol.
 
 [Token Validation](images/10-saml-token-page.png)
+
 --
 
 ### Outcome
@@ -282,6 +292,7 @@ However, there was no way to identify:
 -which accounts had elevated privileges
 
 This phase introduces a governance layer to review user activity and access within the environment.
+
 --
 
 ### Initial Script — Inactive User Audit
