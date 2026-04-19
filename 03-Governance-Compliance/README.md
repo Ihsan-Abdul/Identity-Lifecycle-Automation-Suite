@@ -32,7 +32,7 @@ This phase demonstrates how to:
 
 In a hybrid environment, identity alone is not enough to grant access. This phase focuses on enforcing access controls based on **who** the user is, **what device** they are using, and **what resource** they are trying to access.
 
---
+---
 
 ### Baseline MFA Policy
 
@@ -59,7 +59,7 @@ This establishes the baseline that valid credentials alone are not sufficient fo
 
 - This highlighted that MFA alone is insufficient for protecting sensitive resources. Additional controls based on device trust and application context are needed.
   
---
+---
   
 ### RBAC Enforcement (SharePoint Access Control)
 
@@ -91,7 +91,7 @@ Grant    = Require MFA
 
 [View SharePoint Conditional Access Policy](images/03-SharePoint-policy.png)
 
---
+---
 
 ### Troubleshooting - Hardware Compatibility & The "Break Glass" Necessity
 
@@ -126,7 +126,7 @@ In the enterprise, "Break-Glass" or Emergency Access Accounts are a non-negotiab
 
 - **Zero Trust Balance:** This project highlights the delicate balance between high-security enforcement (Intune/MFA) and Business Continuity
 
---
+---
 
 ### Device Trust (Intune Integration)
 
@@ -143,7 +143,7 @@ To support the device compliance requirement, compliance standards were defined 
 [View Intune Compliance Policy](images/07a-intune-policy.png)
 [View Intune Policy with Admin Exclusion](images/07b-intune-policy-exclusion.png)
 
---
+---
 
 ### Enforcement Model
 
@@ -159,7 +159,7 @@ Resource Policy (SharePoint Conditional Access)
 
 *This completes the Zero Trust access model: ***Verify Identity + Verify Device + Enforce Resource Policy***.*
 
---
+---
 
 ### Outcome
 
@@ -181,7 +181,7 @@ With Zero Trust access controls enforcing MFA and device compliance, the next st
 
 This phase focuses on configuring SAML 2.0 Single Sign-On (SSO) in Microsoft Entra ID to integrate external applications, allowing users to authenticate once and access assigned resources through a centralized identity provider.
 
---
+---
 ### SAML Application Integration
 
 To demonstrate SSO, a custom SAML 2.0 application was configured in Microsoft Entra ID.
@@ -213,7 +213,7 @@ This enforces the Principle of Least Privilege.
 
 [Group Assignment](images/09-user-assignment.png)
 
---
+---
 
 ### SAML Handshake Validation
 
@@ -241,7 +241,7 @@ By intercepting the SAML POST request, the assertion issued by Entra ID was insp
 
 [SAML-tracer Response](images/11-saml-tracer-proof.png)
 
---
+---
 
 ### Troubleshooting — No Backend Application
 
@@ -260,7 +260,7 @@ The test application has no actual backend service to receive the SAML response.
 
 [Token Validation](images/10-saml-token-page.png)
 
---
+---
 
 ### Outcome
 
@@ -280,72 +280,71 @@ This phase demonstrates SAML-based SSO integration within a hybrid identity envi
 
 After implementing lifecycle automation and access controls, the next step was adding visibility into how identities behave after provisioning.
 
-At this stage:
+At this stage, users were being created, moved, and licensed correctly—but there was no mechanism to verify:
 
--users could be created, updated, and offboarded through JML automation
--access was controlled through RBAC and Conditional Access
+- whether accounts were still active
+- whether privileged access was still justified
+- whether access still aligned with the user’s role
+- whether users had accumulated access over time
 
-However, there was no way to identify:
+This phase focuses on building that visibility and gradually refining it into meaningful governance.
 
--which accounts were no longer being used
--which users still had access they may not need
--which accounts had elevated privileges
-
-This phase introduces a governance layer to review user activity and access within the environment.
-
---
+---
 
 ### Initial Script — Inactive User Audit
 
-The first script focused on identifying inactive users using `LastLogonDate`.
+The starting point was a basic inactivity audit using `LastLogonDate`.
 
-***Functionality:***
-
--retrieved all users from Active Directory
--calculated inactivity based on last logon
--applied thresholds to categorize accounts
--displayed results using `Out-GridView`
-
+The script retrieved all users and calculated inactivity based on defined thresholds.
 ```
-($Today - $_.LastLogonDate).Days
+if ($ActualDays -ge $RiskThreshold) {
+    "Risk: Account inactive for more than $RiskThreshold Days"
+}
 ```
+[Inactive Users Script](scripts/)
 
-This provided a basic view of account activity across the environment.
---
+This provided immediate visibility into inactive accounts.
+
+![Inactive User Audit](user audit 1.png)
+
 
 ###  Limitation — No Access Context
 
-While this script identified inactive accounts, it did not account for access level.
+While the script identified inactive users, it treated all accounts equally.
 
-All users were treated equally, with no distinction between:
+It did not distinguish between:
 
--standard users
--users with elevated privileges
+- standard users
+- privileged accounts
 
-This meant inactive accounts could be identified, but not prioritized based on risk.
+and did not provide any guidance on what action should be taken.
 
-Additionally, the output was limited to a visual grid, making it difficult to retain or reuse for review purposes.
---
+At this stage, the output was informative, but not actionable.
 
-### Improved Script — Identity Risk Audit
+---
 
-The script was extended to introduce privileged access review and structured reporting.
+### Improved Script — Identity Risk & Privileged Context
 
-***Improvements introduced:***
+The script was extended to include risk classification and privileged access awareness.
 
--added group membership checks using `MemberOf`
--defined a custom administrative group:
-  -`IT_Admin_GG`
--flagged users with elevated access
--introduced structured output fields:
-  -`Privileged`
-  -`RiskLevel`
-  -`RecommendedAction`
-- exported results to CSV for reporting
+A custom privileged group `IT_Admin_GG` was introduced and checked against each user’s group membership.
+
 ```
-$PrivilegedGroups = @("IT_Admin_GG")
-$Results | Export-Csv -Path ".\reports\identity-risk-audit.csv" -NoTypeInformation
+if ($PrivilegedGroups -contains $GroupName) {
+    $GroupName
+}
+
 ```
+[Inactive and Privileged Users Script](scripts/)
+
+This allowed the script to differentiate between:
+
+inactive standard accounts
+inactive privileged accounts
+
+and assign different risk levels and actions accordingly.
+
+[Identity Risk Audit](images/)
 
 ***Implementation Note:***
 Privileged access in this environment is determined by membership in the IT_Admin_GG group.
@@ -353,30 +352,117 @@ Inactivity is evaluated using LastLogonDate, which is sufficient for this lab bu
 
 ### Outcome
 
-The script now supports:
+This grew the script from:
 
--identifying inactive accounts
--detecting privileged access
--prioritizing users based on risk
--generating exportable governance reports
+- simple inactivity tracking to identity risk evaluation.
 
+At this stage, it was now possible to answer:
 
+- which accounts are inactive
+- which accounts are risky
+- which accounts require immediate attention
 
-
-
-
-
+---
 
 
+### RBAC Drift Detection — Access Alignment
+
+With identity risk visibility in place, the next step was validating whether users still had the correct access.
+
+The RBAC drift script was built to compare:
+
+- the user’s Department
+- the user’s Title
+
+against their group memberships.
+```
+if (-not ($Groups | Where-Object { $_ -like "*$Department*" })) {
+    $AccessStatus = "Drift"
+}
+```
+[RBAC Drift Script](scripts/)
+
+If both values appeared in the group names, access was considered aligned.
+
+[RBAC Drift](rbac drift -1.png)
 
 
+### Limitation
+
+At first glance, this appeared to work correctly.
+
+Most users were returning:
+
+  No Drift — RBAC aligned
+
+However, this introduced another issue.
+
+- Script only validated whether users had the correct access
+
+- Did not check whether users had additional access beyond their role.
+
+### Discovery — Permission Creep
+
+This limitation became visible when reviewing specific users.
+
+For example:
+
+- `ppatel` was marked as No Drift in the RBAC output
+- their department and role matched correctly
+- access appeared valid
+
+However, looking at it, the user still had membership in an additional group that was not aligned with their role.
+
+This exposed a gap:
+
+- The script confirmed correct access
+- failed to detect excess access
+
+### Final Enhancement — Access Drift Detection
+
+To address this, the script was extended to identify unexpected group memberships.
+```
+$UnexpectedGroups = $Groups | Where-Object { $_ -notlike "*$Title*" }
+```
+[Access Drift Script](scipts/)
+
+This introduced a third check:
+
+1. Department alignment
+2. Role alignment
+3. Unexpected access
+
+If additional groups were found, the user was flagged for review.
+
+[Access Drift](images/)
 
 
+Now, Users previously marked as:
 
+`No Drift` could now be identified as:
 
+- Access Drift — unauthorized additional group found.
 
+This refined the model now also prevents permission creep by going from:
 
+“Does the user have the correct access?”
 
+to:
+
+“Does the user have only the access they need?”
+
+### Outcome
+
+This phase completes the transition from:
+
+Identity Provisioning to Identity Governance
+
+The final implementation provides visibility and produces the following into a report file:
+
+- inactive accounts
+- privileged risk exposure
+- RBAC alignment
+- permission creep
 
 
 
