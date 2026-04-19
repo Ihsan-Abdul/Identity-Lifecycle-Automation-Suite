@@ -19,11 +19,28 @@ This phase demonstrates how to:
   - [Troubleshooting - Hardware Compatibility & The "Break Glass" Necessity](#troubleshooting---hardware-compatibility--the-break-glass-necessity)
   - [Device Trust (Intune Integration)](#device-trust-intune-integration)
   - [Enforcement Model](#enforcement-model)
-  - [Key Outcome](#key-outcome)
+  - [Outcome](#outcome)
+
 - [Phase 2 — Modern Authentication (SSO Integrations)](#phase-2--modern-authentication-sso-integrations)
-- [Phase 3 — Identity Governance (Access Review Reporting)](#phase-3--identity-governance-access-review-reporting)
-- [Technical Skills Demonstrated](#technical-skills-demonstrated)
-- [Outcome](#outcome)
+  - [Overview](#overview-1)
+  - [SAML Application Integration](#saml-application-integration)
+  - [Access Control — Group-Based Assignment](#access-control--group-based-assignment)
+  - [SAML Handshake Validation](#saml-handshake-validation)
+  - [Troubleshooting — No Backend Application](#troubleshooting--no-backend-application)
+  - [Outcome](#outcome-1)
+
+- [Phase 3 — Identity Governance & Risk Review](#phase-3--identity-governance--risk-review)
+  - [Overview](#overview-2)
+  - [Initial Script — Inactive User Audit](#initial-script--inactive-user-audit)
+  - [Limitation — No Access Context](#limitation--no-access-context)
+  - [Improved Script — Identity Risk & Privileged Context](#improved-script--identity-risk--privileged-context)
+  - [Outcome](#outcome-2)
+  - [RBAC Drift Detection — Access Alignment](#rbac-drift-detection--access-alignment)
+  - [Limitation](#limitation-1)
+  - [Discovery — Permission Creep](#discovery--permission-creep)
+  - [Final Enhancement — Access Drift Detection](#final-enhancement--access-drift-detection)
+  - [Outcome](#outcome-3)
+
 
 ---
 
@@ -301,11 +318,11 @@ if ($ActualDays -ge $RiskThreshold) {
     "Risk: Account inactive for more than $RiskThreshold Days"
 }
 ```
-[Inactive Users Script](scripts/)
+[Inactive Users Script](scripts/01-InactiveUser.ps1)
 
 This provided immediate visibility into inactive accounts.
 
-![Inactive User Audit](user audit 1.png)
+[Inactive User Audit](images/08-inactive-user-audit.png)
 
 
 ###  Limitation — No Access Context
@@ -335,7 +352,7 @@ if ($PrivilegedGroups -contains $GroupName) {
 }
 
 ```
-[Inactive and Privileged Users Script](scripts/)
+[Inactive and Privileged Users Script](scripts/02-inactive_privileged_User.ps1)
 
 This allowed the script to differentiate between:
 
@@ -344,11 +361,13 @@ inactive privileged accounts
 
 and assign different risk levels and actions accordingly.
 
-[Identity Risk Audit](images/)
+[Identity Risk Audit](images/09-inactive-privileged-user-audit.png)
 
 ***Implementation Note:***
 Privileged access in this environment is determined by membership in the IT_Admin_GG group.
 Inactivity is evaluated using LastLogonDate, which is sufficient for this lab but may not reflect real-time activity in production environments.
+
+---
 
 ### Outcome
 
@@ -380,12 +399,13 @@ if (-not ($Groups | Where-Object { $_ -like "*$Department*" })) {
     $AccessStatus = "Drift"
 }
 ```
-[RBAC Drift Script](scripts/)
+[RBAC Drift Script](scripts/03-rbacDrift.ps1)
 
 If both values appeared in the group names, access was considered aligned.
 
-[RBAC Drift](rbac drift -1.png)
+[RBAC Drift](images/10-rbac-drift-audit.png)
 
+--- 
 
 ### Limitation
 
@@ -400,6 +420,8 @@ However, this introduced another issue.
 - Script only validated whether users had the correct access
 
 - Did not check whether users had additional access beyond their role.
+
+---
 
 ### Discovery — Permission Creep
 
@@ -418,13 +440,16 @@ This exposed a gap:
 - The script confirmed correct access
 - failed to detect excess access
 
+---
+
+
 ### Final Enhancement — Access Drift Detection
 
 To address this, the script was extended to identify unexpected group memberships.
 ```
 $UnexpectedGroups = $Groups | Where-Object { $_ -notlike "*$Title*" }
 ```
-[Access Drift Script](scipts/)
+[Access Drift Script](scipts/04-AccessDrift.ps1)
 
 This introduced a third check:
 
@@ -434,7 +459,7 @@ This introduced a third check:
 
 If additional groups were found, the user was flagged for review.
 
-[Access Drift](images/)
+[Access Drift](images/11-access-drift-audit.png)
 
 
 Now, Users previously marked as:
@@ -451,6 +476,8 @@ to:
 
 “Does the user have only the access they need?”
 
+---
+
 ### Outcome
 
 This phase completes the transition from:
@@ -464,5 +491,6 @@ The final implementation provides visibility and produces the following into a r
 - RBAC alignment
 - permission creep
 
+---
 
 
