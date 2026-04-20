@@ -42,8 +42,6 @@ This phase demonstrates how to:
   - [Discovery — Permission Creep](#discovery--permission-creep)
   - [Final Enhancement — Access Drift Detection](#final-enhancement--access-drift-detection)
   - [Outcome](#outcome-3)
-- [Technical Skills Demonstrated](#technical-skills-demonstrated)
-- [Outcome](#outcome-4)
 
 
 ---
@@ -495,7 +493,6 @@ The final implementation provides visibility across four governance dimensions a
 - Permission creep detected through unexpected group membership
 
 ---
-***Note***
 
 ***Note***
 
