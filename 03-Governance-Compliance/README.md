@@ -12,25 +12,27 @@ This phase demonstrates how to:
 ---
 
 ## Table of Contents
-- [Phase 1 — Zero Trust Access Enforcement](#phase-1---zero-trust-access-enforcement-conditional-access-and-intune)
+
+- [Phase 1 — Zero Trust Access Enforcement](#phase-1--zero-trust-access-enforcement-conditional-access-and-intune)
   - [Baseline MFA Policy](#baseline-mfa-policy)
+  - [Problem — Sensitive Data Requires Stronger Controls](#problem--sensitive-data-requires-stronger-controls)
   - [RBAC Enforcement (SharePoint Access Control)](#rbac-enforcement-sharepoint-access-control)
   - [Risk-Based Access Policy (SharePoint)](#risk-based-access-policy-sharepoint)
-  - [Troubleshooting - Hardware Compatibility & The "Break Glass" Necessity](#troubleshooting---hardware-compatibility--the-break-glass-necessity)
+  - [Troubleshooting — Hardware Compatibility & The Break-Glass Necessity](#troubleshooting--hardware-compatibility--the-break-glass-necessity)
+  - [What I Learned and Why This Matters](#what-i-learned-and-why-this-matters)
   - [Device Trust (Intune Integration)](#device-trust-intune-integration)
   - [Enforcement Model](#enforcement-model)
   - [Outcome](#outcome)
+ 
 
 - [Phase 2 — Modern Authentication (SSO Integrations)](#phase-2--modern-authentication-sso-integrations)
-  - [Overview](#overview-1)
   - [SAML Application Integration](#saml-application-integration)
   - [Access Control — Group-Based Assignment](#access-control--group-based-assignment)
   - [SAML Handshake Validation](#saml-handshake-validation)
   - [Troubleshooting — No Backend Application](#troubleshooting--no-backend-application)
   - [Outcome](#outcome-1)
-
+ 
 - [Phase 3 — Identity Governance & Risk Review](#phase-3--identity-governance--risk-review)
-  - [Overview](#overview-2)
   - [Initial Script — Inactive User Audit](#initial-script--inactive-user-audit)
   - [Limitation — No Access Context](#limitation--no-access-context)
   - [Improved Script — Identity Risk & Privileged Context](#improved-script--identity-risk--privileged-context)
@@ -40,6 +42,8 @@ This phase demonstrates how to:
   - [Discovery — Permission Creep](#discovery--permission-creep)
   - [Final Enhancement — Access Drift Detection](#final-enhancement--access-drift-detection)
   - [Outcome](#outcome-3)
+- [Technical Skills Demonstrated](#technical-skills-demonstrated)
+- [Outcome](#outcome-4)
 
 
 ---
@@ -135,7 +139,7 @@ When I attempted to register my personal device, the process failed. My physical
  **Note:** *The `Admin-Exclude` group was also applied to the baseline MFA policy as a secondary precaution, ensuring administrative access is never fully blocked by a misconfigured policy.*
  
 
-### What I Learned and Why This Matters**
+### What I Learned and Why This Matters
 
 In the enterprise, "Break-Glass" or Emergency Access Accounts are a non-negotiable security requirement:
 
@@ -449,7 +453,7 @@ To address this, the script was extended to identify unexpected group membership
 ```
 $UnexpectedGroups = $Groups | Where-Object { $_ -notlike "*$Title*" }
 ```
-[Access Drift Script](scipts/04-AccessDrift.ps1)
+[Access Drift Script](scripts/04-AccessDrift.ps1)
 
 This introduced a third check:
 
@@ -480,17 +484,19 @@ to:
 
 ### Outcome
 
-This phase completes the transition from:
+This phase completes the transition from identity provisioning to identity governance.
 
-Identity Provisioning to Identity Governance
 
-The final implementation provides visibility and produces the following into a report file:
+The final implementation provides visibility across four governance dimensions and exports findings to a structured report:
 
-- inactive accounts
-- privileged risk exposure
-- RBAC alignment
-- permission creep
+- Inactive accounts flagged by inactivity threshold
+- Privileged risk exposure identified by group membership
+- RBAC alignment verified against department and role
+- Permission creep detected through unexpected group membership
 
 ---
+***Note***
 
+In a production environment, this governance layer would be handled by an IGA platform such as SailPoint IdentityNow. These tools automate access certification campaigns, route flagged accounts to data owners for approval or revocation, and enforce remediation workflows at scale. This script replicates the underlying logic — identifying who has what access, detecting anomalies, classifying risk, and producing a reviewable dataset — demonstrating the governance concepts these platforms operationalize.
 
+---
