@@ -35,7 +35,7 @@ This phase demonstrates how to:
 - [Phase 3 — Identity Governance & Risk Review](#phase-3--identity-governance--risk-review)
   - [Initial Script — Inactive User Audit](#initial-script--inactive-user-audit)
   - [Limitation — No Access Context](#limitation--no-access-context)
-  - [Improved Script — Identity Risk & Privileged Context](#improved-script--identity-risk--privileged-context)
+  - [Improved Script — Identity Risk & Privileged Audit](#improved-script--identity-risk--privileged-audit)
   - [Outcome](#outcome-2)
   - [RBAC Drift Detection — Access Alignment](#rbac-drift-detection--access-alignment)
   - [Limitation](#limitation-1)
@@ -344,7 +344,7 @@ At this stage, the output was informative, but not actionable.
 
 ---
 
-### Improved Script — Identity Risk & Privileged Context
+### Improved Script — Identity Risk & Privileged Audit
 
 The script was extended to include risk classification and privileged access awareness.
 
