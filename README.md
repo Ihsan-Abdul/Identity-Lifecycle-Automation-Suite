@@ -19,9 +19,11 @@ Rather than designing a complete system upfront, this was built iteratively — 
 ### System Architecture
 
 ![JML Process Flow](01-On-Prem-Infrastructure/images/jml.png)
+
 *Automated JML lifecycle workflow*
 
 ![OU Structure](01-On-Prem-Infrastructure/images/OU-Diagram.png)
+
 *Active Directory OU structure supporting RBAC and AGDLP group nesting*
 
 ---
