@@ -497,6 +497,16 @@ The final implementation provides visibility across four governance dimensions a
 ---
 ***Note***
 
-In a production environment, this governance layer would be handled by an IGA platform such as SailPoint IdentityNow. These tools automate access certification campaigns, route flagged accounts to data owners for approval or revocation, and enforce remediation workflows at scale. This script replicates the underlying logic — identifying who has what access, detecting anomalies, classifying risk, and producing a reviewable dataset — demonstrating the governance concepts these platforms operationalize.
+***Note***
 
----
+In a production environment, this governance layer would be handled by an Identity Governance and Administration (IGA) platform such as SailPoint IdentityNow.
+
+These platforms automate access reviews, route flagged accounts for certification, and enforce remediation workflows at scale.
+
+This implementation replicates the underlying logic:
+- identifying access assignments
+- detecting misalignment and excess access
+- classifying risk
+- producing a reviewable dataset
+
+This demonstrates the core governance principles that enterprise IGA platforms operationalize.
