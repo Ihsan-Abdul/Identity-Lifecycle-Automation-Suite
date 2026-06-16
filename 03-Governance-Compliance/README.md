@@ -365,7 +365,7 @@ and assign different risk levels and actions accordingly.
 
 [Identity Risk Audit Report](Reports/identity-risk-audit.xlsx)
 
-[Identity Risk Audit](images/09-inactive-privileged-user-audit.png)
+[Identity Risk Audit Image](images/09-inactive-privileged-user-audit.png)
       
 
 ***Implementation Note:***
@@ -410,7 +410,7 @@ If both values appeared in the group names, access was considered aligned.
 
 [RBAC Drift Report](Reports/rbac-drift-audit.xlsx)
 
-[RBAC Drift](images/10-rbac-drift-audit.png)
+[RBAC Drift Image](images/10-rbac-drift-audit.png)
 
 
 --- 
@@ -470,7 +470,7 @@ If additional groups were found, the user was flagged for review.
 [Access Drift Report](Reports/access-drift-audit.xlsx )
 
 
-[Access Drift](images/11-access-drift-audit.png)
+[Access Drift Image](images/11-access-drift-audit.png)
 
 
 Now, Users previously marked as:
