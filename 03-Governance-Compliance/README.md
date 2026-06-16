@@ -364,6 +364,8 @@ inactive privileged accounts
 and assign different risk levels and actions accordingly.
 
 [Identity Risk Audit](images/09-inactive-privileged-user-audit.png)
+[Identity Risk Audit Report](Reports/identity-risk-audit.xlsx)
+      
 
 ***Implementation Note:***
 Privileged access in this environment is determined by membership in the IT_Admin_GG group.
@@ -406,6 +408,7 @@ if (-not ($Groups | Where-Object { $_ -like "*$Department*" })) {
 If both values appeared in the group names, access was considered aligned.
 
 [RBAC Drift](images/10-rbac-drift-audit.png)
+[RBAC Drift Report](Reports/rbac-drift-audit.xlsx)
 
 --- 
 
@@ -462,7 +465,7 @@ This introduced a third check:
 If additional groups were found, the user was flagged for review.
 
 [Access Drift](images/11-access-drift-audit.png)
-
+[Access Drift Report](Reports/access-drift-audit.xlsx )
 
 Now, Users previously marked as:
 
