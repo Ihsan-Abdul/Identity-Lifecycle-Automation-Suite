@@ -363,8 +363,9 @@ inactive privileged accounts
 
 and assign different risk levels and actions accordingly.
 
-[Identity Risk Audit](images/09-inactive-privileged-user-audit.png)
 [Identity Risk Audit Report](Reports/identity-risk-audit.xlsx)
+
+[Identity Risk Audit](images/09-inactive-privileged-user-audit.png)
       
 
 ***Implementation Note:***
@@ -407,8 +408,10 @@ if (-not ($Groups | Where-Object { $_ -like "*$Department*" })) {
 
 If both values appeared in the group names, access was considered aligned.
 
-[RBAC Drift](images/10-rbac-drift-audit.png)
 [RBAC Drift Report](Reports/rbac-drift-audit.xlsx)
+
+[RBAC Drift](images/10-rbac-drift-audit.png)
+
 
 --- 
 
@@ -464,8 +467,11 @@ This introduced a third check:
 
 If additional groups were found, the user was flagged for review.
 
-[Access Drift](images/11-access-drift-audit.png)
 [Access Drift Report](Reports/access-drift-audit.xlsx )
+
+
+[Access Drift](images/11-access-drift-audit.png)
+
 
 Now, Users previously marked as:
 
